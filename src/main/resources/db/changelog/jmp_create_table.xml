@@ -1,0 +1,96 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="7d6f14e1-dbde-4ced-b131-24a1374af463" author="Anton">
+        <createSequence sequenceName="customer_id_seq"/>
+    </changeSet>
+
+    <changeSet id="3b6bae3e-4b36-44ae-a314-46b7ec78ab17" author="Anton">
+        <createTable tableName="customer">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="customer_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="customer_pkey"/>
+            </column>
+
+            <column name="name" type="varchar"/>
+            <column name="balance" type="decimal"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7d6f14e1-dbde-22ed-b131-24a1374af463" author="Anton">
+        <createSequence sequenceName="oder_id_seq"/>
+    </changeSet>
+
+    <changeSet id="0dbff574-4b10-4104-8514-8eb134e3bc5b" author="Anton">
+        <createTable tableName="oder">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="oder_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="oder_pkey"/>
+            </column>
+
+            <column name="customer_id" type="BIGINT"/>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="732bebdf-2158-4da4-8010-6ec5255f22db" author="Anton">
+        <createSequence sequenceName="ticket_id_seq"/>
+    </changeSet>
+
+    <changeSet id="0dbff554-4b10-4104-6514-9eb134e3bc5b" author="Anton">
+        <createTable tableName="ticket">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="ticket_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="ticket_pkey"/>
+            </column>
+
+            <column name="place_number" type="INT"/>
+
+            <column name="oder_id" type="BIGINT" />
+
+            <column name="is_free" type="boolean"/>
+
+            <column name="event_id" type="BIGINT"/>
+
+            <column name="coast" type="decimal"/>
+
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="864155d2-393d-4d30-bc91-eb0130ff68f0" author="Anton">
+        <createSequence sequenceName="event_id_seq"/>
+    </changeSet>
+
+    <changeSet id="5ab35180-700a-408d-b43a-40414c6ceb93" author="Anton">
+        <createTable tableName="event">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="event_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="event_pkey"/>
+            </column>
+
+            <column name="name" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="b28cc55d-f0e4-4693-a4db-a1a8407fb934" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="oder"
+                                 constraintName="oder_customer_id_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="customer" validate="true"/>
+    </changeSet>
+
+    <changeSet id="b58cc55d-f0e6-4193-a4db-a1a8107fb934" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="oder_id" baseTableName="ticket"
+                                 constraintName="ticket_oder_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="oder" validate="true"/>
+    </changeSet>
+
+    <changeSet id="b58cc34d-f0e6-4693-a4db-a1a8407fb934" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="ticket"
+                                 constraintName="ticket_event_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
