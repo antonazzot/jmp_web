@@ -1,6 +1,7 @@
 package com.tsyrkunou.jmpwep.application.service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,17 +13,20 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
+import com.tsyrkunou.jmpwep.application.model.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
+import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
-import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final TicketRepository ticketRepository;
+    private final CustomerService customerService;
+    private final TicketService ticketService;
+    private final BalanceProcessor <EventAmount, Amount> balanceProcessor;
 
     @Transactional
     public Oder createOrder(Event event, Customer customer, List<Ticket> freeTicket, Integer amountOfPlace) {
@@ -33,22 +37,50 @@ public class OrderService {
             reserveTicket.add(ticket);
         }
 
-        customer.setBalance(customer.getBalance().subtract(coastOfTicket(reserveTicket)));
+        Oder order = Oder.builder()
+                .customer(customer)
+                .build();
+        balanceProcessor.byuTicket(event.getEventAmount().getId(), customer.getAmount().getId(), coastOfTicket(reserveTicket));
+        return saveTicketWithOrder(order, reserveTicket);
+
+    }
+
+    @Transactional
+    public Oder createOrder(Event event, Customer customer, List<Integer> numberOfPlace) {
+        List<Ticket> ticketByNumberOfPlace = ticketService.getTicketByNumberOfPlace(numberOfPlace);
+        BigDecimal totalCoast = BigDecimal.ZERO;
+
+        for (Ticket ticket : ticketByNumberOfPlace) {
+            ticket.setFree(false);
+            totalCoast = totalCoast.add(ticket.getCoast());
+        }
 
         Oder order = Oder.builder()
                 .customer(customer)
                 .build();
 
-        return saveTicketWithOrder(order, reserveTicket);
+        balanceProcessor.byuTicket(event.getEventAmount().getId(), customer.getAmount().getId(), totalCoast);
+        return saveTicketWithOrder(order, ticketByNumberOfPlace);
 
     }
 
+    @Transactional
+    public void refuseOrder(Long ticketId ) {
+        Customer customer = customerService.findByTicketId(ticketId);
+        Ticket ticket = ticketService.findOne(ticketId);
+        Event event = ticket.getEvent();
+        Oder order = orderRepository.findOderByCustomerId(customer.getId());
+        order.removeTicket(ticket);
+        ticket.setFree(true);
+        balanceProcessor.byuTicket(customer.getAmount().getId(),  event.getEventAmount().getId(), ticket.getCoast());
+    }
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Oder saveTicketWithOrder(Oder oder, Set<Ticket> reserveTicket) {
+    public Oder saveTicketWithOrder(Oder oder, Collection<Ticket> reserveTicket) {
         orderRepository.save(oder);
         reserveTicket.forEach(ticket -> {
             oder.addTicket(ticket);
-            ticketRepository.save(ticket);
+            ticketService.saveTicket(ticket);
         });
         return oder;
     }
@@ -61,7 +93,15 @@ public class OrderService {
         return result;
     }
 
-    public Oder createSimpleOrder() {
-        return orderRepository.save(new Oder());
+    public Oder findOderByCustomerId (Long customerId) {
+        return orderRepository.findOderByCustomerId(customerId);
+    }
+
+    @Transactional
+    public void refuseOrder(Customer customer, Ticket ticket, Oder order) {
+        Event event = ticket.getEvent();
+        order.removeTicket(ticket);
+        ticket.setFree(true);
+        balanceProcessor.returnTicket(customer.getAmount().getId(),  event.getEventAmount().getId(), ticket.getCoast());
     }
 }

@@ -23,6 +23,9 @@ import com.tsyrkunou.jmpwep.application.model.order.CreateOrderData;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderRequest;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.order.OrderResponse;
+import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketData;
+import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketRequest;
+import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketResponse;
 import com.tsyrkunou.jmpwep.application.service.EventService;
 import com.tsyrkunou.jmpwep.application.service.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.TicketBookingService;
@@ -64,6 +67,13 @@ public class ApplicationRestImpl implements ApplicationRest {
         CreateOrderData createOrderData = applicationConverter.convert(request);
         Oder oder = ticketBookingService.createOrder(createOrderData);
         return ResponseEntity.ok(orderAssembler.toModel(oder));
+    }
+
+    @Override
+    public ResponseEntity<ReturnTicketResponse> returnTicket(ReturnTicketRequest request) {
+        ReturnTicketData returnTicketData = applicationConverter.convert(request);
+        ReturnTicketResponse returnTicketResponse = ticketBookingService.returnTicket(returnTicketData);
+        return ResponseEntity.ok(returnTicketResponse);
     }
 
 }

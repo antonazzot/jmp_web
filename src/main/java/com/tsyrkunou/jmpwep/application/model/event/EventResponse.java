@@ -1,5 +1,6 @@
 package com.tsyrkunou.jmpwep.application.model.event;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -19,4 +20,5 @@ public class EventResponse extends RepresentationModel<EventResponse> {
     private Long id;
     private String name;
     private Set<Ticket> ticket;
+    private BigDecimal balance;
 }

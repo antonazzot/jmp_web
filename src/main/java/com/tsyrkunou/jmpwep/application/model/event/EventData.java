@@ -15,4 +15,5 @@ public class EventData {
     private String name;
     private Integer amountOfPlace;
     private BigDecimal coastOfTicket;
+    private BigDecimal balance;
 }

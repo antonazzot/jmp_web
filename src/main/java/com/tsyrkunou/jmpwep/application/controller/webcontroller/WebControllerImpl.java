@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.controller;
+package com.tsyrkunou.jmpwep.application.controller.webcontroller;
 
 import java.io.IOException;
 import java.util.List;
@@ -94,7 +94,7 @@ public class WebControllerImpl implements WebController {
 
     @Override
     public String getTicketFromXml(Long id, Model model) throws JAXBException, IOException {
-        Ticket unmarshall = marshallerService.unmarshall(id);
+        marshallerService.unmarshall(id);
         return "pdfgen/itwasenerated.html";
     }
 

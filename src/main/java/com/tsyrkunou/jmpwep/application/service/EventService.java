@@ -2,12 +2,15 @@ package com.tsyrkunou.jmpwep.application.service;
 
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.event.EventData;
+import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.EventRepository;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;
@@ -20,9 +23,14 @@ public class EventService {
 
     @Transactional
     public Event createEvent(EventData eventData) {
+        EventAmount amount = new EventAmount();
+        if (eventData.getBalance() != null )
+            amount.setBalance(eventData.getBalance());
+        else amount.setBalance(BigDecimal.ZERO);
+
         Event event = new Event();
         event.setName(eventData.getName());
-        event = processCreateEvent(event, eventData);
+        event = processCreateEvent(event, eventData, amount);
         return eventRepository.findById(event.getId()).orElseThrow(() -> new MyAppException("Event not found"));
     }
 
@@ -39,7 +47,9 @@ public class EventService {
                 .orElseThrow(() -> new NotFoundException("Event with name" + eventName + "not found"));
     }
 
-    private Event processCreateEvent(Event event, EventData eventData) {
+    private Event processCreateEvent(Event event, EventData eventData,
+                                     EventAmount amount) {
+        event.setEventAmount(amount);
         for (int i = 1; i < eventData.getAmountOfPlace() + 1; i++) {
             Ticket ticket = Ticket.builder()
                     .isFree(true)

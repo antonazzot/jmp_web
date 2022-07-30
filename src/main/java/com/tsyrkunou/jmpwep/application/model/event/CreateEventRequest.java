@@ -32,8 +32,12 @@ public class CreateEventRequest {
     private Integer amountOfPlace;
 
     @PositiveOrZero
-    @Schema(description = "Coast of ticket", required = false)
+    @Schema(description = "Coast of ticket")
     private BigDecimal coastOfTicket;
+
+    @PositiveOrZero
+    @Schema(description = "Event balance")
+    private BigDecimal balance;
 
 
 }

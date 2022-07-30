@@ -20,6 +20,7 @@ public class CustomerAssembler implements RepresentationModelAssembler<Customer,
         model.setId(entity.getId());
         model.setName(entity.getName());
         model.setOders(entity.getOders());
+        model.setBalance(entity.getAmount().getBalance());
 
         model.add(linkTo(methodOn(ApplicationRestImpl.class)
                 .getUserById(entity.getId()))

@@ -11,6 +11,8 @@ import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.criteria.JoinType;
 
 @Component
@@ -41,6 +43,14 @@ public class TicketSpecificationBuilder<T extends Ticket> {
                         .get("id"), id));
         Specification<T> two =
                 Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(false));
+        return Specification.where(one).and(two);
+    }
+
+    public Specification <T> buildFreeByNumberOfPlace(List<Integer> numberOfPlace) {
+        Specification<T> one = Specification.where((root, query, criteriaBuilder) ->
+                root.get("id").in(numberOfPlace));
+        Specification<T> two =
+                Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(true));
         return Specification.where(one).and(two);
     }
 }

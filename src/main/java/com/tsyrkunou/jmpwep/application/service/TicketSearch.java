@@ -1,5 +1,6 @@
 package com.tsyrkunou.jmpwep.application.service;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import com.tsyrkunou.jmpwep.application.model.event.Event;
@@ -39,4 +40,8 @@ public class TicketSearch {
         return ticketRepository.findAll(specification);
     }
 
+    public List <Ticket> findFreeTicketByNumberOfPlace(List<Integer> numberOfPlace) {
+        Specification<Ticket> specification = specificationBuilder.buildFreeByNumberOfPlace(numberOfPlace);
+        return ticketRepository.findAll(specification);
+    }
 }

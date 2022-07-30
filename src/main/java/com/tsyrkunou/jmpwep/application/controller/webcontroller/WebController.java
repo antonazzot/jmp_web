@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.controller;
+package com.tsyrkunou.jmpwep.application.controller.webcontroller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import java.io.IOException;

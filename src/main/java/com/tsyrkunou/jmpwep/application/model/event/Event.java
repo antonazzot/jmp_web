@@ -12,16 +12,19 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -31,9 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
+import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 @NamedEntityGraphs({
@@ -53,6 +59,8 @@ import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 @XmlAccessorType(XmlAccessType.FIELD)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cacheable
 @Entity
 public class Event implements ModelEntity {
     @Id
@@ -65,6 +73,10 @@ public class Event implements ModelEntity {
 
     @XmlElement
     String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_amount_id", referencedColumnName = "id")
+    EventAmount eventAmount;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

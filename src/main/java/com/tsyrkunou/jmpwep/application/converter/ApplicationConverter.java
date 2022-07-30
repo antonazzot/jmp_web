@@ -8,6 +8,8 @@ import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.event.EventData;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderData;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderRequest;
+import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketData;
+import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketRequest;
 
 @Mapper(componentModel = "spring")
 public interface ApplicationConverter {
@@ -16,4 +18,6 @@ public interface ApplicationConverter {
     EventData convert(CreateEventRequest request);
 
     CreateOrderData convert(CreateOrderRequest request);
+
+    ReturnTicketData convert (ReturnTicketRequest request);
 }
