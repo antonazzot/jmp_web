@@ -4,6 +4,8 @@ import org.mapstruct.Mapper;
 
 import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
 import com.tsyrkunou.jmpwep.application.model.customer.CustomerData;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountData;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
 import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.event.EventData;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderData;
@@ -20,4 +22,6 @@ public interface ApplicationConverter {
     CreateOrderData convert(CreateOrderRequest request);
 
     ReturnTicketData convert (ReturnTicketRequest request);
+
+    UpdateAmountData convert (UpdateAmountRequest request);
 }

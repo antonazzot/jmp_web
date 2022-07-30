@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.commonservice;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

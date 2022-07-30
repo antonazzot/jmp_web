@@ -11,6 +11,9 @@ import com.tsyrkunou.jmpwep.application.assembler.CustomerAssembler;
 import com.tsyrkunou.jmpwep.application.assembler.EventAssembler;
 import com.tsyrkunou.jmpwep.application.assembler.OrderAssembler;
 import com.tsyrkunou.jmpwep.application.converter.ApplicationConverter;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountData;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountResponse;
 import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
 import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
@@ -26,9 +29,10 @@ import com.tsyrkunou.jmpwep.application.model.order.OrderResponse;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketData;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketRequest;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketResponse;
-import com.tsyrkunou.jmpwep.application.service.EventService;
-import com.tsyrkunou.jmpwep.application.service.CustomerService;
-import com.tsyrkunou.jmpwep.application.service.TicketBookingService;
+import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.amountservice.GeneralAmountService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,6 +44,7 @@ public class ApplicationRestImpl implements ApplicationRest {
     private final EventAssembler eventAssembler;
     private final TicketBookingService ticketBookingService;
     private final OrderAssembler orderAssembler;
+    private final GeneralAmountService generalAmountService;
 
     @Override
     public ResponseEntity<CustomerResponse> create(CreateCustomerRequest request) {
@@ -74,6 +79,13 @@ public class ApplicationRestImpl implements ApplicationRest {
         ReturnTicketData returnTicketData = applicationConverter.convert(request);
         ReturnTicketResponse returnTicketResponse = ticketBookingService.returnTicket(returnTicketData);
         return ResponseEntity.ok(returnTicketResponse);
+    }
+
+    @Override
+    public ResponseEntity<UpdateAmountResponse> updateAmount(UpdateAmountRequest request) {
+        UpdateAmountData updateAmountData = applicationConverter.convert(request);
+        UpdateAmountResponse updateAmountResponse = generalAmountService.updateAmount(updateAmountData);
+        return ResponseEntity.ok(updateAmountResponse);
     }
 
 }

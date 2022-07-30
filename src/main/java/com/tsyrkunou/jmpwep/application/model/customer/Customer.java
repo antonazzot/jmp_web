@@ -30,7 +30,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
-import com.tsyrkunou.jmpwep.application.model.customerbalance.Amount;
+import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 
 @Data

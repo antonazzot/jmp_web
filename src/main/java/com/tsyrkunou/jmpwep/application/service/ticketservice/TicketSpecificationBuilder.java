@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
 

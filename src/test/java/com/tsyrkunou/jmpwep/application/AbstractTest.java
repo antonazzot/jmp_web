@@ -9,11 +9,11 @@ import com.tsyrkunou.jmpwep.application.repository.CustomerRepository;
 import com.tsyrkunou.jmpwep.application.repository.EventRepository;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
 import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
-import com.tsyrkunou.jmpwep.application.service.CustomerService;
-import com.tsyrkunou.jmpwep.application.service.EventService;
-import com.tsyrkunou.jmpwep.application.service.OrderService;
-import com.tsyrkunou.jmpwep.application.service.TicketBookingService;
-import com.tsyrkunou.jmpwep.application.service.TicketService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
+import com.tsyrkunou.jmpwep.application.service.orderservice.OrderService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)

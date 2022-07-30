@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.eventservice;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.event.EventData;
-import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
+import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.EventRepository;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;

@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.commonservice;
 
 import java.io.File;
 import java.io.FileReader;

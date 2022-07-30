@@ -39,7 +39,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
-import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
+import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 @NamedEntityGraphs({

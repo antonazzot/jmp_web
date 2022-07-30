@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,6 +18,9 @@ import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketData;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketResponse;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
+import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
+import com.tsyrkunou.jmpwep.application.service.orderservice.OrderService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
 
 @Slf4j
@@ -49,7 +52,7 @@ public class TicketBookingService {
 
         validateOrderData(createOrderData, event, customer);
 
-        if (createOrderData.getAmountOfPlace() !=null) {
+        if (createOrderData.getAmountOfPlace() != null) {
             List<Ticket> freeTicket = ticketService.getFreeTicket(event);
             return orderService.createOrder(event, customer, freeTicket, createOrderData.getAmountOfPlace());
         }
@@ -78,8 +81,9 @@ public class TicketBookingService {
             }
         } else if (
                 !checkRequeredTicketForFreeAndEnoughBalance(numberOfPlace, customer.getAmount().getBalance())
-        )
-         throw new MyAppException("No more free space or insufficient funds");
+        ) {
+            throw new MyAppException("No more free space or insufficient funds");
+        }
     }
 
     private boolean checkRequeredTicketForFreeAndEnoughBalance(List<Integer> numberOfPlace, BigDecimal balance) {

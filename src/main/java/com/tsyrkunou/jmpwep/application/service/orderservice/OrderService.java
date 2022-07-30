@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.orderservice;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -13,12 +13,15 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
-import com.tsyrkunou.jmpwep.application.model.customerbalance.Amount;
+import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
-import com.tsyrkunou.jmpwep.application.model.eventbalance.EventAmount;
+import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
+import com.tsyrkunou.jmpwep.application.service.amountservice.BalanceProcessor;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CustomerService customerService;
     private final TicketService ticketService;
-    private final BalanceProcessor <EventAmount, Amount> balanceProcessor;
+    private final BalanceProcessor<EventAmount, Amount> balanceProcessor;
 
     @Transactional
     public Oder createOrder(Event event, Customer customer, List<Ticket> freeTicket, Integer amountOfPlace) {

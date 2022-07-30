@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

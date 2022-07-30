@@ -19,10 +19,10 @@ import org.springframework.ui.Model;
 
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
-import com.tsyrkunou.jmpwep.application.service.CustomerService;
-import com.tsyrkunou.jmpwep.application.service.MarshallerService;
-import com.tsyrkunou.jmpwep.application.service.PdfGenerateService;
-import com.tsyrkunou.jmpwep.application.service.TicketService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.commonservice.MarshallerService;
+import com.tsyrkunou.jmpwep.application.service.commonservice.PdfGenerateService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
 
 @Controller
 @RequiredArgsConstructor

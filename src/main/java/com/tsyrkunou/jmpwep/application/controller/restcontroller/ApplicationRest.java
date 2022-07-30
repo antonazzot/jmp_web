@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +15,8 @@ import javax.validation.Valid;
 
 import org.springframework.hateoas.MediaTypes;
 
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
+import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountResponse;
 import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
 import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.customer.CustomerResponse;
@@ -45,5 +48,9 @@ public interface ApplicationRest {
     @Operation(description = "Return ticket")
     @PatchMapping(value = "/ticket", produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<ReturnTicketResponse> returnTicket (@Valid @RequestBody ReturnTicketRequest request);
+
+    @Operation(description = "Update amount")
+    @PutMapping(value = "/amount", produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<UpdateAmountResponse> updateAmount (@Valid @RequestBody UpdateAmountRequest request);
 
 }

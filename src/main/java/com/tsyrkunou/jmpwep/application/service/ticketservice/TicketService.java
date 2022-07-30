@@ -1,4 +1,4 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
+import com.tsyrkunou.jmpwep.application.service.commonservice.MarshallerService;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;
 
 @Service
