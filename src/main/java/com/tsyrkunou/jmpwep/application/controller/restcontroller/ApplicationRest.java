@@ -1,6 +1,7 @@
 package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,10 @@ public interface ApplicationRest {
     @Operation(description = "Create event")
     @PostMapping(value = "/event", produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<EventResponse> createEvent(@Valid @RequestBody CreateEventRequest request);
+
+    @Operation(description = "Delete event")
+    @DeleteMapping(value = "/event/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<?> deleteEvent(@PathVariable(name = "id") Long id);
 
     @Operation(description = "Create oder")
     @PostMapping(value = "/oder", produces = MediaTypes.HAL_JSON_VALUE)

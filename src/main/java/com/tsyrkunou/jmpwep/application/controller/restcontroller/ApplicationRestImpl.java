@@ -68,6 +68,12 @@ public class ApplicationRestImpl implements ApplicationRest {
     }
 
     @Override
+    public ResponseEntity<?> deleteEvent(Long id) {
+        eventService.deleteEventById(id);
+        return ResponseEntity.ok(id);
+    }
+
+    @Override
     public ResponseEntity<OrderResponse> createOrder(CreateOrderRequest request) {
         CreateOrderData createOrderData = applicationConverter.convert(request);
         Oder oder = ticketBookingService.createOrder(createOrderData);

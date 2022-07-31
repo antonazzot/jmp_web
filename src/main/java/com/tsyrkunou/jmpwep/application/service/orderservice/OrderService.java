@@ -103,8 +103,8 @@ public class OrderService {
     @Transactional
     public void refuseOrder(Customer customer, Ticket ticket, Oder order) {
         Event event = ticket.getEvent();
-        order.removeTicket(ticket);
         ticket.setFree(true);
+        ticket.setOder(null);
         balanceProcessor.returnTicket(customer.getAmount().getId(),  event.getEventAmount().getId(), ticket.getCoast());
     }
 }
