@@ -1,10 +1,10 @@
 package com.tsyrkunou.jmpwep.application.utils;
 
-import lombok.experimental.UtilityClass;
-
 import java.net.URI;
 
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class ResourceUtils {

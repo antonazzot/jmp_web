@@ -3,15 +3,6 @@ package com.tsyrkunou.jmpwep.application.model.event;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,6 +32,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
 import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @NamedEntityGraphs({
         @NamedEntityGraph(

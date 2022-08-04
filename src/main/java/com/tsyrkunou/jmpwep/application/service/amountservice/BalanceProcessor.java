@@ -1,7 +1,5 @@
 package com.tsyrkunou.jmpwep.application.service.amountservice;
 
-import lombok.RequiredArgsConstructor;
-
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tsyrkunou.jmpwep.application.model.amounts.GeneralAmount;
 import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

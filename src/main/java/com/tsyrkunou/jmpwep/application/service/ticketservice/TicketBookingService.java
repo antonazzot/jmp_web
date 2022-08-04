@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +15,13 @@ import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketData;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketResponse;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
 import com.tsyrkunou.jmpwep.application.service.orderservice.OrderService;
-import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor

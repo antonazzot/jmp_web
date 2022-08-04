@@ -1,12 +1,12 @@
 package com.tsyrkunou.jmpwep.application.utils;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.Optional;
 
 import javax.persistence.criteria.Path;
 
 import org.springframework.data.jpa.domain.Specification;
+
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public final class SpecificationUtils {

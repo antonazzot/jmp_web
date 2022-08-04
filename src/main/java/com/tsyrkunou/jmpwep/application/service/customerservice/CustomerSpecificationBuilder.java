@@ -1,5 +1,9 @@
 package com.tsyrkunou.jmpwep.application.service.customerservice;
 
+import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
+
+import javax.persistence.criteria.JoinType;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -7,10 +11,6 @@ import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.persistence.criteria.JoinType;
-
-import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
 
 @Component
 @RequiredArgsConstructor

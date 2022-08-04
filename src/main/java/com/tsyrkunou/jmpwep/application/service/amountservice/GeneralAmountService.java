@@ -1,7 +1,5 @@
 package com.tsyrkunou.jmpwep.application.service.amountservice;
 
-import lombok.RequiredArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -13,6 +11,8 @@ import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountData;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountResponse;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;
 import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

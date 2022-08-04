@@ -6,22 +6,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
-import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
+import com.tsyrkunou.jmpwep.application.model.customer.Customer;
+import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
 import com.tsyrkunou.jmpwep.application.service.amountservice.BalanceProcessor;
 import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

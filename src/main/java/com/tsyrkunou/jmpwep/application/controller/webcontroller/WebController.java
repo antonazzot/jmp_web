@@ -1,7 +1,5 @@
 package com.tsyrkunou.jmpwep.application.controller.webcontroller;
 
-import io.swagger.v3.oas.annotations.Operation;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RequestMapping(value = "/jmp/web")
 public interface WebController {

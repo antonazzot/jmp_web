@@ -2,16 +2,6 @@ package com.tsyrkunou.jmpwep.application.model.ticket;
 
 import java.math.BigDecimal;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.FieldNameConstants;
-
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +27,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 @Builder
 @Data

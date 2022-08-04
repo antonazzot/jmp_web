@@ -9,10 +9,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import javax.xml.bind.JAXBException;
 
 import org.springframework.data.domain.Page;
@@ -23,11 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
-import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.commonservice.MarshallerService;
 import com.tsyrkunou.jmpwep.application.service.commonservice.PdfGenerateService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
 import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j

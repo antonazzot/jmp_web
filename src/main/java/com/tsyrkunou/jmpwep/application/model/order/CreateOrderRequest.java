@@ -1,12 +1,11 @@
 package com.tsyrkunou.jmpwep.application.model.order;
 
-import javax.validation.constraints.Size;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

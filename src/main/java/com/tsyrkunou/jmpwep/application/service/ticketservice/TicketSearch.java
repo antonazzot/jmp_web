@@ -1,5 +1,7 @@
 package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -8,8 +10,6 @@ import com.tsyrkunou.jmpwep.application.model.event.Event;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;
-
-import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 

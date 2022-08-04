@@ -5,9 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -16,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

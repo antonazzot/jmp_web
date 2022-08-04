@@ -1,13 +1,5 @@
 package com.tsyrkunou.jmpwep.application.model.amounts.customerbalance;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldNameConstants;
-
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -20,6 +12,14 @@ import javax.persistence.SequenceGenerator;
 
 import com.tsyrkunou.jmpwep.application.model.amounts.GeneralAmount;
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 @Data
 @Builder

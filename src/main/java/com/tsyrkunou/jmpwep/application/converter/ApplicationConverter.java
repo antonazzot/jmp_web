@@ -2,10 +2,10 @@ package com.tsyrkunou.jmpwep.application.converter;
 
 import org.mapstruct.Mapper;
 
-import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
-import com.tsyrkunou.jmpwep.application.model.customer.CustomerData;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountData;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
+import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
+import com.tsyrkunou.jmpwep.application.model.customer.CustomerData;
 import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.event.EventData;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderData;

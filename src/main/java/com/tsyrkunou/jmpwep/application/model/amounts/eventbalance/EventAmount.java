@@ -1,13 +1,5 @@
 package com.tsyrkunou.jmpwep.application.model.amounts.eventbalance;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldNameConstants;
-
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -21,6 +13,14 @@ import javax.persistence.Table;
 
 import com.tsyrkunou.jmpwep.application.model.amounts.GeneralAmount;
 import com.tsyrkunou.jmpwep.application.model.event.Event;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 @Data
 @Builder
@@ -37,6 +37,8 @@ public class EventAmount implements GeneralAmount {
     @EqualsAndHashCode.Include
     private Long id;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne(mappedBy = "eventAmount")
     private Event event;
 

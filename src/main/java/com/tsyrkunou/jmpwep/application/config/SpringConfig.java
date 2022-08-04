@@ -1,7 +1,5 @@
 package com.tsyrkunou.jmpwep.application.config;
 
-import lombok.RequiredArgsConstructor;
-
 import javax.servlet.ServletContext;
 
 import org.springframework.context.ApplicationContext;
@@ -17,6 +15,8 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.UrlTemplateResolver;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor

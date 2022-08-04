@@ -1,12 +1,12 @@
 package com.tsyrkunou.jmpwep.application.service.amountservice;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
 import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.repository.AmountRepository;
 import com.tsyrkunou.jmpwep.application.utils.NotFoundException;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

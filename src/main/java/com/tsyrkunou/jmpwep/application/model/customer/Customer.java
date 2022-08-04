@@ -3,16 +3,6 @@ package com.tsyrkunou.jmpwep.application.model.customer;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.FieldNameConstants;
-
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,6 +22,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.tsyrkunou.jmpwep.application.model.ModelEntity;
 import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 @Data
 @Builder

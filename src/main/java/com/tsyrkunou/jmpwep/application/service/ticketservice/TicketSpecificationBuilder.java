@@ -2,6 +2,10 @@ package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
 
+import java.util.List;
+
+import javax.persistence.criteria.JoinType;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +14,6 @@ import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-import javax.persistence.criteria.JoinType;
 
 @Component
 @RequiredArgsConstructor

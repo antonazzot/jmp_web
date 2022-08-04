@@ -1,5 +1,8 @@
 package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
+import javax.validation.Valid;
+
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,22 +13,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.swagger.v3.oas.annotations.Operation;
-
-import javax.validation.Valid;
-
-import org.springframework.hateoas.MediaTypes;
-
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountResponse;
 import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
-import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.customer.CustomerResponse;
+import com.tsyrkunou.jmpwep.application.model.event.CreateEventRequest;
 import com.tsyrkunou.jmpwep.application.model.event.EventResponse;
 import com.tsyrkunou.jmpwep.application.model.order.CreateOrderRequest;
 import com.tsyrkunou.jmpwep.application.model.order.OrderResponse;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketRequest;
 import com.tsyrkunou.jmpwep.application.model.ticket.ReturnTicketResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RequestMapping(value = "/jmp")
 public interface ApplicationRest {
