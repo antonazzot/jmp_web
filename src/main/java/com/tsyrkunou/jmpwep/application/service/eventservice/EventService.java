@@ -24,9 +24,11 @@ public class EventService {
     @Transactional
     public Event createEvent(EventData eventData) {
         EventAmount amount = new EventAmount();
-        if (eventData.getBalance() != null )
+        if (eventData.getBalance() != null) {
             amount.setBalance(eventData.getBalance());
-        else amount.setBalance(BigDecimal.ZERO);
+        } else {
+            amount.setBalance(BigDecimal.ZERO);
+        }
 
         Event event = new Event();
         event.setName(eventData.getName());

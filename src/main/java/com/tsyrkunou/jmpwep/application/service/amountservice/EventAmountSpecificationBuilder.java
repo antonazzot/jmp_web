@@ -20,7 +20,8 @@ public class EventAmountSpecificationBuilder<T extends EventAmount> {
     }
 
     public Specification<T> buildForOne(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.join(EventAmount.Fields.event, JoinType.LEFT)
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(
+                root.join(EventAmount.Fields.event, JoinType.LEFT)
                         .get("name"), name);
     }
 }

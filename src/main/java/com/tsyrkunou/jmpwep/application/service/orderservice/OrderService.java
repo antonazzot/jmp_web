@@ -43,7 +43,8 @@ public class OrderService {
         Oder order = Oder.builder()
                 .customer(customer)
                 .build();
-        balanceProcessor.byuTicket(event.getEventAmount().getId(), customer.getAmount().getId(), coastOfTicket(reserveTicket));
+        balanceProcessor.byuTicket(event.getEventAmount().getId(), customer.getAmount().getId(),
+                coastOfTicket(reserveTicket));
         return saveTicketWithOrder(order, reserveTicket);
 
     }
@@ -68,14 +69,22 @@ public class OrderService {
     }
 
     @Transactional
-    public void refuseOrder(Long ticketId ) {
+    public void refuseOrder(Customer customer, Ticket ticket, Oder order) {
+        Event event = ticket.getEvent();
+        ticket.setFree(true);
+        ticket.setOder(null);
+        balanceProcessor.returnTicket(customer.getAmount().getId(), event.getEventAmount().getId(), ticket.getCoast());
+    }
+
+    @Transactional
+    public void refuseOrder(Long ticketId) {
         Customer customer = customerService.findByTicketId(ticketId);
         Ticket ticket = ticketService.findOne(ticketId);
         Event event = ticket.getEvent();
         Oder order = orderRepository.findOderByCustomerId(customer.getId());
         order.removeTicket(ticket);
         ticket.setFree(true);
-        balanceProcessor.byuTicket(customer.getAmount().getId(),  event.getEventAmount().getId(), ticket.getCoast());
+        balanceProcessor.byuTicket(customer.getAmount().getId(), event.getEventAmount().getId(), ticket.getCoast());
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -88,23 +97,15 @@ public class OrderService {
         return oder;
     }
 
+    public Oder findOderByCustomerId(Long customerId) {
+        return orderRepository.findOderByCustomerId(customerId);
+    }
+
     private BigDecimal coastOfTicket(Set<Ticket> reserveTicket) {
         BigDecimal result = BigDecimal.ZERO;
         for (Ticket ticket : reserveTicket) {
             result = result.add(ticket.getCoast());
         }
         return result;
-    }
-
-    public Oder findOderByCustomerId (Long customerId) {
-        return orderRepository.findOderByCustomerId(customerId);
-    }
-
-    @Transactional
-    public void refuseOrder(Customer customer, Ticket ticket, Oder order) {
-        Event event = ticket.getEvent();
-        ticket.setFree(true);
-        ticket.setOder(null);
-        balanceProcessor.returnTicket(customer.getAmount().getId(),  event.getEventAmount().getId(), ticket.getCoast());
     }
 }

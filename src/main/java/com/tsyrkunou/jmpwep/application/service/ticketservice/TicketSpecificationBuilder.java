@@ -11,11 +11,9 @@ import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Predicate;
 
 @Component
 @RequiredArgsConstructor
@@ -48,19 +46,14 @@ public class TicketSpecificationBuilder<T extends Ticket> {
         return Specification.where(one).and(two);
     }
 
-    public Specification <T> buildFreeByNumberOfPlace(List<Integer> numberOfPlace) {
+    public Specification<T> buildFreeByNumberOfPlace(List<Integer> numberOfPlace) {
 
         Specification<T> one = Specification.where((root, query, criteriaBuilder) -> {
-           return root.get("id").in(numberOfPlace);
-//                    List<Predicate> predicates = new ArrayList<>();
-//                    for (Integer intg : numberOfPlace) {
-//                        predicates.add(root.get("id").in(numberOfPlace));
-//                    }
-//                    return root.in(predicates);
-                });
+            return root.get("id").in(numberOfPlace);
+        });
 
-                Specification < T > two =
-                        Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(true));
+        Specification<T> two =
+                Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(true));
         return Specification.where(one).and(two);
     }
 }

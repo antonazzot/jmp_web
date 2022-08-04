@@ -34,7 +34,7 @@ public class GeneralAmountService {
         }
 
         return new UpdateAmountResponse(generalAmount.watchBalance().get("ownerName"),
-                        generalAmount.watchBalance().get("ownerBalance"));
+                generalAmount.watchBalance().get("ownerBalance"));
     }
 
     private Optional<GeneralAmount> detectGeneralAmount(UpdateAmountData updateAmountData) {
@@ -47,11 +47,9 @@ public class GeneralAmountService {
             generalAmount = eventAmountService.findOne(eventId);
         } else if (eventName == null && customerName == null && eventId == null) {
             generalAmount = amountService.findOne(customerId);
-        }
-        else if (eventName == null && eventId == null && customerId== null) {
+        } else if (eventName == null && eventId == null && customerId == null) {
             generalAmount = amountService.findOne(customerName);
-        }
-        else if (customerName == null && eventId == null && customerId== null) {
+        } else if (customerName == null && eventId == null && customerId == null) {
             generalAmount = eventAmountService.findOne(eventName);
         }
         return Optional.ofNullable(generalAmount);
@@ -76,8 +74,8 @@ public class GeneralAmountService {
         }
 
         if ((customerId != null && customerName != null) || (eventName != null && eventId != null)
-        || (customerId != null && eventName!=null) || (customerName !=null && eventId!= null)
-        || (customerName != null && eventName != null) || (customerId != null && eventId != null)) {
+                || (customerId != null && eventName != null) || (customerName != null && eventId != null)
+                || (customerName != null && eventName != null) || (customerId != null && eventId != null)) {
             throw new MyAppException("Present extra data");
         }
     }

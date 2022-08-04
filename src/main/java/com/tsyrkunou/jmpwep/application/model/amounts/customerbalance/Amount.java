@@ -35,6 +35,8 @@ public class Amount implements GeneralAmount {
     @EqualsAndHashCode.Include
     private Long id;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToOne(mappedBy = "amount")
     private Customer customer;
 
@@ -42,14 +44,16 @@ public class Amount implements GeneralAmount {
 
     @Override
     public void depositOnAmount(BigDecimal bigDecimal) {
-        if(bigDecimal.compareTo(BigDecimal.ZERO) > 0)
+        if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
             setBalance(this.balance.add(bigDecimal));
+        }
     }
 
     @Override
     public void deductFromAmount(BigDecimal bigDecimal) {
-        if(bigDecimal.compareTo(BigDecimal.ZERO) > 0)
+        if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
             setBalance(this.balance.subtract(bigDecimal));
+        }
     }
 
     @Override

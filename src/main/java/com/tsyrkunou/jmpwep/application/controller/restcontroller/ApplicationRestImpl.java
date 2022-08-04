@@ -1,6 +1,7 @@
 package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.tsyrkunou.jmpwep.application.utils.ResourceUtils.buildLocationUri;
 
@@ -35,6 +36,7 @@ import com.tsyrkunou.jmpwep.application.service.amountservice.GeneralAmountServi
 import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
 
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 public class ApplicationRestImpl implements ApplicationRest {
     private final ApplicationConverter applicationConverter;
@@ -62,6 +64,7 @@ public class ApplicationRestImpl implements ApplicationRest {
 
     @Override
     public ResponseEntity<EventResponse> createEvent(CreateEventRequest request) {
+        log.info("Request for creation event with name: " + request.getName(), request.getName());
         EventData eventData = applicationConverter.convert(request);
         Event event = eventService.createEvent(eventData);
         return ResponseEntity.ok(eventAssembler.toModel(event));

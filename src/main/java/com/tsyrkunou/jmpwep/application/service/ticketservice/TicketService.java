@@ -48,8 +48,8 @@ public class TicketService {
                 .orElseThrow(() -> new NotFoundException("Ticket with id: " + ticketId + " not found"));
     }
 
-    public Ticket saveTicket (Ticket ticket){
-      return   ticketRepository.save(ticket);
+    public Ticket saveTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
     }
 
     @Transactional
@@ -58,7 +58,7 @@ public class TicketService {
         ticketRepository.save(unmarshall);
     }
 
-    public List <Ticket> getTicketByNumberOfPlace(List<Integer> numberOfPlace) {
+    public List<Ticket> getTicketByNumberOfPlace(List<Integer> numberOfPlace) {
         return ticketSearch.findFreeTicketByNumberOfPlace(numberOfPlace);
     }
 }

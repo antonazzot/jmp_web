@@ -1,14 +1,13 @@
 package com.tsyrkunou.jmpwep.application.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.net.URI;
 
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+@UtilityClass
 public final class ResourceUtils {
-
-    private ResourceUtils() {
-        // utility class
-    }
 
     public static URI buildLocationUri(Class<?> controllerClass, Object... variables) {
         return MvcUriComponentsBuilder

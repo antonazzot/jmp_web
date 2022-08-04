@@ -14,29 +14,29 @@ import com.tsyrkunou.jmpwep.application.model.amounts.eventbalance.EventAmount;
 
 @Service
 @RequiredArgsConstructor
-public class BalanceProcessor <T extends GeneralAmount, I extends  GeneralAmount> {
+public class BalanceProcessor<T extends GeneralAmount, I extends GeneralAmount> {
     private final AmountService amountService;
     private final EventAmountService eventAmountService;
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void byuTicket (Long depositAmountId, Long deductFromAmountId, BigDecimal bigDecimal){
+    public void byuTicket(Long depositAmountId, Long deductFromAmountId, BigDecimal bigDecimal) {
         EventAmount depositAmount = eventAmountService.findOne(depositAmountId);
         Amount deductAmount = amountService.findOne(deductFromAmountId);
-        exchange((T)depositAmount, (I)deductAmount, bigDecimal);
+        exchange((T) depositAmount, (I) deductAmount, bigDecimal);
         amountService.save(deductAmount);
         eventAmountService.save(depositAmount);
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void returnTicket (Long depositAmountId, Long deductFromAmountId, BigDecimal bigDecimal){
+    public void returnTicket(Long depositAmountId, Long deductFromAmountId, BigDecimal bigDecimal) {
         EventAmount deductAmount = eventAmountService.findOne(deductFromAmountId);
         Amount depositAmount = amountService.findOne(depositAmountId);
-        exchange((T)depositAmount, (I)deductAmount, bigDecimal);
+        exchange((T) depositAmount, (I) deductAmount, bigDecimal);
         amountService.save(depositAmount);
         eventAmountService.save(deductAmount);
     }
 
-    private void exchange (T depositAmount, I deductFromAmount, BigDecimal bigDecimal) {
+    private void exchange(T depositAmount, I deductFromAmount, BigDecimal bigDecimal) {
         deductFromAmount.deductFromAmount(bigDecimal);
         depositAmount.depositOnAmount(bigDecimal);
     }

@@ -22,9 +22,11 @@ public class CustomerService {
     @Transactional
     public Customer createCustomer(CustomerData customerData) {
         Amount amount = new Amount();
-        if (customerData.getBalance() != null )
+        if (customerData.getBalance() != null) {
             amount.setBalance(customerData.getBalance());
-        else amount.setBalance(BigDecimal.ZERO);
+        } else {
+            amount.setBalance(BigDecimal.ZERO);
+        }
 
         Customer customer = Customer.builder()
                 .name(customerData.getName())
@@ -44,8 +46,6 @@ public class CustomerService {
     public Customer findByTicketId(Long ticketId) {
         return customerSearch.findByTicketId(ticketId);
     }
-
-
 
     public List<Customer> findAll() {
         return customerRepository.findAll();

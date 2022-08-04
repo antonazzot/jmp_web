@@ -27,17 +27,19 @@ public class PdfGenerateServiceImpl implements PdfGenerateService {
     private String pdfDirectory;
 
     @Override
-    public void generatePdfFile(String templateName, Map<String, Object> data, String pdfFileName) {
+    public String generatePdfFile(String templateName, Map<String, Object> data, String pdfFileName) {
         Context context = new Context();
         context.setVariables(data);
+        String pdfPath = pdfDirectory + pdfFileName;
 
         String htmlContent = templateEngine.process(templateName, context);
-        try (FileOutputStream fileOutputStream = new FileOutputStream(pdfDirectory + pdfFileName)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(pdfPath)) {
             ITextRenderer renderer = new ITextRenderer();
             renderer.setDocumentFromString(htmlContent);
             renderer.layout();
             renderer.createPDF(fileOutputStream, false);
             renderer.finishPDF();
+            return pdfPath;
         } catch (DocumentException | IOException e) {
             log.error(e.getMessage());
             throw new MyAppException(e.getMessage());

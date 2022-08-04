@@ -44,14 +44,16 @@ public class EventAmount implements GeneralAmount {
 
     @Override
     public void depositOnAmount(BigDecimal bigDecimal) {
-        if(bigDecimal.compareTo(BigDecimal.ZERO) > 0)
+        if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
             setBalance(this.balance.add(bigDecimal));
+        }
     }
 
     @Override
     public void deductFromAmount(BigDecimal bigDecimal) {
-        if(bigDecimal.compareTo(BigDecimal.ZERO) > 0)
+        if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
             setBalance(this.balance.subtract(bigDecimal));
+        }
     }
 
     @Override

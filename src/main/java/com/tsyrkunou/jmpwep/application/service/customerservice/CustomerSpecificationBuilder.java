@@ -7,9 +7,10 @@ import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.order.Oder;
 
 import lombok.RequiredArgsConstructor;
-import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
 
 import javax.persistence.criteria.JoinType;
+
+import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
 
 @Component
 @RequiredArgsConstructor

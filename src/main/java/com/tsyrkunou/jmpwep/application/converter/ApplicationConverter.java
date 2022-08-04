@@ -21,7 +21,7 @@ public interface ApplicationConverter {
 
     CreateOrderData convert(CreateOrderRequest request);
 
-    ReturnTicketData convert (ReturnTicketRequest request);
+    ReturnTicketData convert(ReturnTicketRequest request);
 
-    UpdateAmountData convert (UpdateAmountRequest request);
+    UpdateAmountData convert(UpdateAmountRequest request);
 }

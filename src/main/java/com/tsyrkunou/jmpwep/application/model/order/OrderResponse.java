@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderResponse extends RepresentationModel<OrderResponse> {
     private Long id;
-    private String  eventName;
+    private String eventName;
     private Set<Ticket> tickets;
 }

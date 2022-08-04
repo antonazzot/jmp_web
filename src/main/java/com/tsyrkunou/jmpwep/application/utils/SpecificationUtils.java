@@ -1,14 +1,15 @@
 package com.tsyrkunou.jmpwep.application.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Optional;
 
 import javax.persistence.criteria.Path;
 
 import org.springframework.data.jpa.domain.Specification;
 
+@UtilityClass
 public final class SpecificationUtils {
-    private SpecificationUtils() {
-    }
 
     public static <T> Specification<T> isFieldEqualsTo(String field, Object fieldValue) {
         return (root, query, builder) -> Optional.ofNullable(fieldValue)

@@ -26,7 +26,7 @@ public class AmountService {
     }
 
     public Amount save(Amount deductAmount) {
-       return amountRepository.save(deductAmount);
+        return amountRepository.save(deductAmount);
     }
 
 }

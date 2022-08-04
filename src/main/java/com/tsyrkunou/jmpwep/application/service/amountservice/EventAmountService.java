@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventAmountService {
     private final EventAmountRepository eventAmountRepository;
-    private final EventAmountSpecificationBuilder <EventAmount> eventAmountSpecificationBuilder;
+    private final EventAmountSpecificationBuilder<EventAmount> eventAmountSpecificationBuilder;
 
     public EventAmount findOne(Long amountId) {
         return eventAmountRepository.findById(amountId)
@@ -24,7 +24,6 @@ public class EventAmountService {
         return eventAmountRepository.findOne(specification)
                 .orElseThrow(() -> new NotFoundException("Event amount by event name: " + eventAmount + " not found"));
     }
-
 
     public EventAmount save(EventAmount depositAmount) {
         return eventAmountRepository.save(depositAmount);

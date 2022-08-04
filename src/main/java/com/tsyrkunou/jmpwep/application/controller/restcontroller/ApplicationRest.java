@@ -36,7 +36,7 @@ public interface ApplicationRest {
 
     @Operation(description = "Get user by id")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<CustomerResponse> getUserById (@PathVariable(name = "id") Long id);
+    ResponseEntity<CustomerResponse> getUserById(@PathVariable(name = "id") Long id);
 
     @Operation(description = "Create event")
     @PostMapping(value = "/event", produces = MediaTypes.HAL_JSON_VALUE)
@@ -52,10 +52,10 @@ public interface ApplicationRest {
 
     @Operation(description = "Return ticket")
     @PatchMapping(value = "/ticket", produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<ReturnTicketResponse> returnTicket (@Valid @RequestBody ReturnTicketRequest request);
+    ResponseEntity<ReturnTicketResponse> returnTicket(@Valid @RequestBody ReturnTicketRequest request);
 
     @Operation(description = "Update amount")
     @PutMapping(value = "/amount", produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<UpdateAmountResponse> updateAmount (@Valid @RequestBody UpdateAmountRequest request);
+    ResponseEntity<UpdateAmountResponse> updateAmount(@Valid @RequestBody UpdateAmountRequest request);
 
 }
