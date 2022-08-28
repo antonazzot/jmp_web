@@ -11,6 +11,8 @@ spring:
     driver: org.postgresql.Drive
   jpa:
     hibernate:
+      jdbc:
+        batch_size: 20
       cache:
         use_second_level_cache: true
         provider_class: net.sf.ehcache.hibernate.EhCacheProvider
@@ -21,10 +23,12 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        hibernate.format_sql: true
         cache:
           use_second_level_cache: true
           region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
           provider_class: net.sf.ehcache.hibernate.EhCacheProvider
+
 
   liquibase:
     change-log: classpath:/db/changelog.xml
@@ -35,9 +39,118 @@ logging:
   file:
     name: "src/main/resources/spring.log"
 
+token: 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
+owner: autocoderepobot
+repo: testforkrepo
 
 #  charset:
 #    file: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/logdir/log-file.log
 #  file: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/logdir/log-file.log
 
 pdfdirectory: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/resources
+
+security:
+  oauth2:
+    client:
+      clientId: f0f33c0046052814f064
+      clientSecret: 38b4210f5e05c4f2df46ead5a4b17dcdcb891ba1
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+      clientAuthenticationScheme: form
+    resource:
+      user-info-uri: https://api.github.com/user
+      prefer-token-info: false
+
+#a.y:         bot-id: ${GIT_OAUTH2_GITHUB_BOT_ID}
+#               bot-username: ${GIT_OAUTH2_GITHUB_BOT_USERNAME}
+#               bot-access-token: ${GIT_OAUTH2_GITHUB_BOT_ACCESS_TOKEN}
+#
+#
+#                 bot-id: ${GIT_OAUTH2_GITLAB_BOT_ID}
+#                 bot-username: ${GIT_OAUTH2_GITLAB_BOT_USERNAME}
+#                 bot-access-token: ${GIT_OAUTH2_GITLAB_BOT_ACCESS_TOKEN}
+#
+#
+#                 bot-id: 1
+#                 bot-username: GIT_OAUTH2_GITHUB_BOT_USERNAME
+#                 bot-access-token: GIT_OAUTH2_GITHUB_BOT_ACCESS_TOKEN
+#
+#                 bot-id: 3
+#                 bot-username: GIT_OAUTH2_GITLAB_BOT_USERNAME
+#                 bot-access-token: GIT_OAUTH2_GITLAB_BOT_ACCESS_TOKEN
+#
+#                 bot-id: 1
+#                 bot-username: 2
+#                 bot-access-token: 2
+#
+#                 bot-id: 100
+#                 bot-username: hub2
+#                 bot-access-token: hub2
+#
+#                 codeRepositorydataresolver:
+#                 public void addAutocodeBot(GitRepositoryData repositoryData) {
+#                 var currentUserId = currentUser.getId();
+#                 var authorization = gitAuthorizationService.getActualDecryptedAuthorization(repositoryData.getProvider(), currentUserId);
+#                 try {
+#                 gitProviderFacade.addAutocodeBot(authorization, repositoryData, CollaboratorPermissionLevel.READ);
+#               } catch (Exception ex) {
+#
+#             }
+#             }
+#               CodeRepositoryTaskUpdateDetailsProcessor:
+#               2x
+#               repositoryDataResolver.addAutocodeBot(newDetails.getTaskRepository());
+#
+#               GitProviderConfig:
+#               private Long botId;
+#
+#               private String botUsername;
+#
+#               private String botAccessToken;
+#
+#
+#               GitProviderFacade:
+#                 private final GitProviderConfiguration gitProviderConfiguration;
+#
+#               public void addAutocodeBot(UserGitAuthorization ownerAuthorization,
+#               GitRepositoryData gitRepositoryData, CollaboratorPermissionLevel permissionLevel) {
+#               var gitProvider = gitRepositoryData.getProvider();
+#               var gitProviderAdapter = adapterFor(gitProvider);
+#               var config = gitProviderConfiguration.getOAuth2Properties(gitProvider);
+#               var ownerData = new GitUserData(ownerAuthorization.getGitId(), ownerAuthorization.getGitUsername());
+#               var inviteeData = new GitUserData(config.getBotId(), config.getBotUsername());
+#               var ownerBearerToken = bearer(ownerAuthorization.getAccessToken());
+#               var inviteeBearerToken = bearer(config.getBotAccessToken());
+#               gitProviderAdapter.grantRepositoryAccess(ownerBearerToken, inviteeBearerToken, gitRepositoryData, ownerData,
+#               inviteeData, permissionLevel, null);
+#             }
+#
+#               UpdateTaskDetailsTests:
+#
+#                 private static final Map<CollaboratorPermissionLevel, Long> GITLAB_PERMISSIONS = Map.of(READ, 20L, WRITE, 30L, ADMIN, 40L);
+#
+#               //        when(gitlabFeignClient.getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getBearer(),
+#               //                testRepositoryData().getGitId(), TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getId()))
+#               //                .thenReturn(ResponseEntity.of(Optional.of(getGitlabCourseTaskOwner())));
+#               //        when(gitlabFeignClient.getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getBearer(),
+#               //                taskRepositoryData().getGitId(), TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getId()))
+#               //                .thenReturn(ResponseEntity.of(Optional.of(getGitlabCourseTaskOwner())));
+#               //        when(gitlabFeignClient.getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getBearer(),
+#               //                testRepositoryData().getGitId(), TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getId()))
+#               //                .thenReturn(ResponseEntity.of(Optional.of(getGitlabCourseTaskOwner())));
+#               //        when(gitlabFeignClient.getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getBearer(),
+#               //                taskRepositoryData().getGitId(), TestGitUserData.TEST_CONTRIBUTOR1.getGitlabUserData().getId()))
+#               //                .thenReturn(ResponseEntity.of(Optional.of(getGitlabCourseTaskOwner())));
+#
+#
+#               Long botId = gitProviderConfiguration.getOAuth2Properties(taskRepositoryData().getProvider()).getBotId();
+#
+#               verify(gitlabFeignClient).getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR2.getGitlabUserData().getBearer(),
+#               taskRepositoryData().getGitId(), botId);
+#               verify(gitlabFeignClient).updateRepositoryCollaborator(TestGitUserData.TEST_CONTRIBUTOR2.getGitlabUserData().getBearer(),
+#               taskRepositoryData().getGitId(), botId, GITLAB_PERMISSIONS.get(READ), null);
+#
+#               verify(gitlabFeignClient).getRepositoryCollaboratorData(TestGitUserData.TEST_CONTRIBUTOR2.getGitlabUserData().getBearer(),
+#               testRepositoryData().getGitId(),botId);
+#               verify(gitlabFeignClient).updateRepositoryCollaborator(TestGitUserData.TEST_CONTRIBUTOR2.getGitlabUserData().getBearer(),
+#               testRepositoryData().getGitId(), botId, GITLAB_PERMISSIONS.get(READ), null);

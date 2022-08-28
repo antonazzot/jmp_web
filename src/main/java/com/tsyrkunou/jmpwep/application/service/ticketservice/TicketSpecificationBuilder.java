@@ -51,7 +51,6 @@ public class TicketSpecificationBuilder<T extends Ticket> {
         Specification<T> one = Specification.where((root, query, criteriaBuilder) -> {
             return root.get("id").in(numberOfPlace);
         });
-
         Specification<T> two =
                 Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(true));
         return Specification.where(one).and(two);
