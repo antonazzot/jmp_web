@@ -11,6 +11,10 @@ spring:
     driver: org.postgresql.Drive
   jpa:
     hibernate:
+      jdbc:
+        batch_size: 2
+        batch_versioned_data: true
+      order_inserts: true
       cache:
         use_second_level_cache: true
         provider_class: net.sf.ehcache.hibernate.EhCacheProvider
@@ -21,6 +25,11 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        jdbc:
+          batch_size: 2
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
         cache:
           use_second_level_cache: true
           region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory

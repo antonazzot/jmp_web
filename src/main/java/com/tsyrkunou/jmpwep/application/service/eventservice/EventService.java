@@ -2,6 +2,7 @@ package com.tsyrkunou.jmpwep.application.service.eventservice;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class EventService {
     private final EventRepository eventRepository;
 
+    @BatchSize(size = 4)
     @Transactional
     public Event createEvent(EventData eventData) {
         EventAmount amount = new EventAmount();
@@ -62,8 +64,8 @@ public class EventService {
                 ticket.setCoast(eventData.getCoastOfTicket());
             }
             event.addTicket(ticket);
-            event = eventRepository.save(event);
         }
+        event = eventRepository.save(event);
         return event;
     }
 
