@@ -43,7 +43,6 @@ public class TicketBookingService {
         if (createOrderData.getNewCustomer() != null && createOrderData.getNewCustomer()) {
             customer = customerService.createCustomer(
                     new CustomerData(createOrderData.getCustomerName(), createOrderData.getCustomerBalance()));
-
         } else {
             customer =
                     createOrderData.getCustomerId() != null ? customerService.findOne(createOrderData.getCustomerId())

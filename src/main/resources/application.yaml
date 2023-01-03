@@ -50,3 +50,8 @@ logging:
 #  file: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/logdir/log-file.log
 
 pdfdirectory: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/resources
+
+bot:
+  config:
+    bot_name: name
+    bot_owner: owner

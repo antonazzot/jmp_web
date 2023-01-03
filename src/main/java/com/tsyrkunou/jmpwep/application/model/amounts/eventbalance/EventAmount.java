@@ -1,6 +1,9 @@
 package com.tsyrkunou.jmpwep.application.model.amounts.eventbalance;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -19,6 +22,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
 
@@ -44,10 +48,13 @@ public class EventAmount implements GeneralAmount {
 
     private BigDecimal balance;
 
+    @SneakyThrows
     @Override
     public void depositOnAmount(BigDecimal bigDecimal) {
         if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
             setBalance(this.balance.add(bigDecimal));
+            Connection con = DriverManager.getConnection("url");
+            PreparedStatement statement = con.prepareStatement("sql");
         }
     }
 

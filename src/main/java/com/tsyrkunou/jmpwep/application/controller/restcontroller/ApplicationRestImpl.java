@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tsyrkunou.jmpwep.application.assembler.CustomerAssembler;
 import com.tsyrkunou.jmpwep.application.assembler.EventAssembler;
 import com.tsyrkunou.jmpwep.application.assembler.OrderAssembler;
+import com.tsyrkunou.jmpwep.application.config.BotConfig;
 import com.tsyrkunou.jmpwep.application.converter.ApplicationConverter;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountData;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
@@ -47,6 +48,7 @@ public class ApplicationRestImpl implements ApplicationRest {
     private final TicketBookingService ticketBookingService;
     private final OrderAssembler orderAssembler;
     private final GeneralAmountService generalAmountService;
+    private final BotConfig botConfig;
 
     @Override
     public ResponseEntity<CustomerResponse> create(CreateCustomerRequest request) {
@@ -95,6 +97,13 @@ public class ApplicationRestImpl implements ApplicationRest {
         UpdateAmountData updateAmountData = applicationConverter.convert(request);
         UpdateAmountResponse updateAmountResponse = generalAmountService.updateAmount(updateAmountData);
         return ResponseEntity.ok(updateAmountResponse);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateBot(String botName, String botOwner) {
+        botConfig.setBotName(botName);
+        botConfig.setBotOwner(botOwner);
+        return null;
     }
 
 }

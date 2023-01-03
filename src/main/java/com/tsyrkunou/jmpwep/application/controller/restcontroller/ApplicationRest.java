@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountRequest;
 import com.tsyrkunou.jmpwep.application.model.amounts.UpdateAmountResponse;
@@ -56,5 +57,8 @@ public interface ApplicationRest {
     @Operation(description = "Update amount")
     @PutMapping(value = "/amount", produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<UpdateAmountResponse> updateAmount(@Valid @RequestBody UpdateAmountRequest request);
+
+    @PostMapping(value = "updatebot")
+    ResponseEntity<Void> updateBot (@RequestParam String botName, @RequestParam String botOwner);
 
 }

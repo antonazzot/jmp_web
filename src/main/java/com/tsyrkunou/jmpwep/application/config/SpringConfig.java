@@ -18,10 +18,13 @@ import org.thymeleaf.templateresolver.UrlTemplateResolver;
 
 import lombok.RequiredArgsConstructor;
 
+//import com.tsyrkunou.jmpwep.application.globalconfig.OnProdCond;
+
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan("com.tsyrkunou.jmpwep.application")
 @EnableWebMvc
+//@Conditional({OnProdCond.class})
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
