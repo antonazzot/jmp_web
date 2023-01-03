@@ -42,6 +42,7 @@ public class WebControllerImpl implements WebController {
     public String getAllCustomers(Model model) {
         List<Customer> customers = customerService.findAll();
         model.addAttribute("customers", customers);
+        log.info(model.toString());
         return "customer/all";
     }
 
