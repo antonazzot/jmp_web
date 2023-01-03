@@ -43,7 +43,6 @@ public class Graph<T> {
     public boolean hasCycle(Vertex<T> sourceVertex) {
         sourceVertex.setBeingVisited(true);
         for (Vertex<T> neighbor : sourceVertex.getAdjacencyList()) {
-            dependencyTree = Pair.of(sourceVertex.getT(), neighbor.getT());
             if (neighbor.isBeingVisited()) {
                 return true;
             } else if (!neighbor.isVisited() && hasCycle(neighbor)) {
