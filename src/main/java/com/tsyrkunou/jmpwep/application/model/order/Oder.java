@@ -2,16 +2,8 @@ package com.tsyrkunou.jmpwep.application.model.order;
 
 import java.util.HashSet;
 import java.util.Set;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.FieldNameConstants;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -24,12 +16,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tsyrkunou.jmpwep.application.model.ModelEntity;
-import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
+import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 @Data
 @Builder
@@ -38,8 +41,10 @@ import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 @FieldNameConstants
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cacheable
 @Entity
-public class Oder implements ModelEntity {
+public class Oder {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oder_id_seq")
     @SequenceGenerator(name = "oder_id_seq", sequenceName = "oder_id_seq", allocationSize = 1)
@@ -73,4 +78,5 @@ public class Oder implements ModelEntity {
         tickets.remove(ticket);
         ticket.setOder(null);
     }
+
 }

@@ -15,6 +15,19 @@
             </column>
 
             <column name="name" type="varchar"/>
+            <column name="amount_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7d6f14e1-dbde-4ced-b131-24a8374af463" author="Anton">
+        <createSequence sequenceName="amount_id_seq"/>
+    </changeSet>
+
+    <changeSet id="82a0be07-fe95-4bb0-a7a9-4782a9c23999" author="Anton">
+        <createTable tableName="amount">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="amount_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="amount_pkey"/>
+            </column>
             <column name="balance" type="decimal"/>
         </createTable>
     </changeSet>
@@ -67,10 +80,38 @@
                 <constraints primaryKey="true" unique="true" primaryKeyName="event_pkey"/>
             </column>
 
+            <column name="event_amount_id" type="bigint"/>
+
             <column name="name" type="varchar"/>
         </createTable>
     </changeSet>
 
+    <changeSet id="64df1259-d9d8-43f2-bb71-b1759e44aef2" author="Anton">
+        <createSequence sequenceName="event_amount_id_seq"/>
+    </changeSet>
+
+    <changeSet id="41ca0c42-7508-49c0-b44c-d4209bf97626" author="Anton">
+        <createTable tableName="event_amount">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="event_amount_id_seq">
+                <constraints primaryKey="true" unique="true" primaryKeyName="event_amount_pkey"/>
+            </column>
+            <column name="balance" type="decimal"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1bed8a9b-d2d5-417c-a234-a68da539d0f1" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="amount_id" baseTableName="customer"
+                                 constraintName="customer_amount_id_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="amount" validate="true"/>
+    </changeSet>
+
+    <changeSet id="6a2bf0a2-a484-4124-9bc6-eb778c73c6bc" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="event_amount_id" baseTableName="event"
+                                 constraintName="event_event_amount_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="event_amount" validate="true"/>
+    </changeSet>
 
     <changeSet id="b28cc55d-f0e4-4693-a4db-a1a8407fb934" author="Anton">
         <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="oder"

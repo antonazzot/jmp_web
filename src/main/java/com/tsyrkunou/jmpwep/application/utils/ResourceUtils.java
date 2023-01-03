@@ -4,11 +4,10 @@ import java.net.URI;
 
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-public final class ResourceUtils {
+import lombok.experimental.UtilityClass;
 
-    private ResourceUtils() {
-        // utility class
-    }
+@UtilityClass
+public final class ResourceUtils {
 
     public static URI buildLocationUri(Class<?> controllerClass, Object... variables) {
         return MvcUriComponentsBuilder

@@ -20,6 +20,7 @@ public class EventAssembler implements RepresentationModelAssembler<Event, Event
         model.setId(entity.getId());
         model.setName(entity.getName());
         model.setTicket(entity.getTicket());
+        model.setBalance(entity.getEventAmount().getBalance());
 
         model.add(linkTo(methodOn(ApplicationRestImpl.class)
                 .getUserById(entity.getId()))

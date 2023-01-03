@@ -1,8 +1,27 @@
 package com.tsyrkunou.jmpwep.application.model.customer;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.tsyrkunou.jmpwep.application.model.ModelEntity;
+import com.tsyrkunou.jmpwep.application.model.amounts.customerbalance.Amount;
+import com.tsyrkunou.jmpwep.application.model.order.Oder;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,20 +33,6 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.tsyrkunou.jmpwep.application.model.ModelEntity;
-import com.tsyrkunou.jmpwep.application.model.order.Oder;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -35,6 +40,8 @@ import com.tsyrkunou.jmpwep.application.model.order.Oder;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @FieldNameConstants
 @EntityListeners(AuditingEntityListener.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cacheable
 @Entity
 public class Customer implements ModelEntity {
     @Id
@@ -55,7 +62,9 @@ public class Customer implements ModelEntity {
     )
     Set<Oder> oders;
 
-    BigDecimal balance;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "amount_id", referencedColumnName = "id")
+    Amount amount;
 
     public void addOder(Oder oder) {
         if (oders == null) {

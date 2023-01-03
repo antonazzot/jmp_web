@@ -1,5 +1,7 @@
-package com.tsyrkunou.jmpwep.application.controller;
+package com.tsyrkunou.jmpwep.application.controller.webcontroller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -7,24 +9,28 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-
 import javax.xml.bind.JAXBException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
-import com.tsyrkunou.jmpwep.application.service.CustomerService;
-import com.tsyrkunou.jmpwep.application.service.MarshallerService;
-import com.tsyrkunou.jmpwep.application.service.PdfGenerateService;
-import com.tsyrkunou.jmpwep.application.service.TicketService;
+import com.tsyrkunou.jmpwep.application.service.commonservice.MarshallerService;
+import com.tsyrkunou.jmpwep.application.service.commonservice.PdfGenerateService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
+import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 public class WebControllerImpl implements WebController {
     private final CustomerService customerService;
@@ -94,8 +100,26 @@ public class WebControllerImpl implements WebController {
 
     @Override
     public String getTicketFromXml(Long id, Model model) throws JAXBException, IOException {
-        Ticket unmarshall = marshallerService.unmarshall(id);
+        marshallerService.unmarshall(id);
         return "pdfgen/itwasenerated.html";
     }
 
+    @Override
+    public @ResponseBody
+    byte[] returnPdf(Long id, Model model) {
+        List<Ticket> ticketList = ticketService.getBockedTickets(id);
+        Map<String, Object> context = Map.of("ticketList", ticketList);
+        String generatePdfFilePath = pdfGenerateServiceImp.generatePdfFile("tickets/ticket", context, "Mypdf");
+        try {
+            byte[] targetArray;
+            try (FileInputStream fis = new FileInputStream(new File(generatePdfFilePath))) {
+                targetArray = new byte[fis.available()];
+                fis.read(targetArray);
+            }
+            return targetArray;
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new MyAppException(e.getMessage());
+        }
+    }
 }

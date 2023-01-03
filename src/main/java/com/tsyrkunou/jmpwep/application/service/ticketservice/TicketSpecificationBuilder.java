@@ -1,6 +1,10 @@
-package com.tsyrkunou.jmpwep.application.service;
+package com.tsyrkunou.jmpwep.application.service.ticketservice;
 
 import static com.tsyrkunou.jmpwep.application.utils.SpecificationUtils.isFieldEqualsTo;
+
+import java.util.List;
+
+import javax.persistence.criteria.JoinType;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -10,8 +14,6 @@ import com.tsyrkunou.jmpwep.application.model.order.Oder;
 import com.tsyrkunou.jmpwep.application.model.ticket.Ticket;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.persistence.criteria.JoinType;
 
 @Component
 @RequiredArgsConstructor
@@ -41,6 +43,17 @@ public class TicketSpecificationBuilder<T extends Ticket> {
                         .get("id"), id));
         Specification<T> two =
                 Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(false));
+        return Specification.where(one).and(two);
+    }
+
+    public Specification<T> buildFreeByNumberOfPlace(List<Integer> numberOfPlace) {
+
+        Specification<T> one = Specification.where((root, query, criteriaBuilder) -> {
+            return root.get("id").in(numberOfPlace);
+        });
+
+        Specification<T> two =
+                Specification.where((root, query, criteriaBuilder) -> root.get(Ticket.Fields.isFree).in(true));
         return Specification.where(one).and(two);
     }
 }

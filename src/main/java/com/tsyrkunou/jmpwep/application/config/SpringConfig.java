@@ -1,7 +1,5 @@
 package com.tsyrkunou.jmpwep.application.config;
 
-import lombok.RequiredArgsConstructor;
-
 import javax.servlet.ServletContext;
 
 import org.springframework.context.ApplicationContext;
@@ -18,10 +16,15 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.UrlTemplateResolver;
 
+import lombok.RequiredArgsConstructor;
+
+//import com.tsyrkunou.jmpwep.application.globalconfig.OnProdCond;
+
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan("com.tsyrkunou.jmpwep.application")
 @EnableWebMvc
+//@Conditional({OnProdCond.class})
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;

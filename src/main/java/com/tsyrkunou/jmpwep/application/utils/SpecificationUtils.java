@@ -6,9 +6,10 @@ import javax.persistence.criteria.Path;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public final class SpecificationUtils {
-    private SpecificationUtils() {
-    }
 
     public static <T> Specification<T> isFieldEqualsTo(String field, Object fieldValue) {
         return (root, query, builder) -> Optional.ofNullable(fieldValue)

@@ -1,19 +1,29 @@
 package com.tsyrkunou.jmpwep.application;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.hateoas.mediatype.hal.Jackson2HalModule;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.tsyrkunou.jmpwep.application.repository.CustomerRepository;
 import com.tsyrkunou.jmpwep.application.repository.EventRepository;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
 import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
-import com.tsyrkunou.jmpwep.application.service.CustomerService;
-import com.tsyrkunou.jmpwep.application.service.EventService;
-import com.tsyrkunou.jmpwep.application.service.OrderService;
-import com.tsyrkunou.jmpwep.application.service.TicketBookingService;
-import com.tsyrkunou.jmpwep.application.service.TicketService;
+import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
+import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
+import com.tsyrkunou.jmpwep.application.service.orderservice.OrderService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
+import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketService;
+
+import io.restassured.config.ObjectMapperConfig;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import lombok.SneakyThrows;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -36,6 +46,20 @@ public abstract class AbstractTest {
     protected TicketRepository ticketRepository;
     @Autowired
     protected CustomerRepository customerRepository;
+    @Autowired
+    protected MockMvc mockMvc;
 
-
+    @BeforeEach
+    @SneakyThrows
+    void setUpParent() {
+        RestAssuredMockMvc.mockMvc(mockMvc);
+        RestAssuredMockMvc.config = RestAssuredMockMvc.config().objectMapperConfig(
+                new ObjectMapperConfig().jackson2ObjectMapperFactory((type, s) -> {
+                    var mapper = new ObjectMapper();
+                    mapper.registerModule(new Jackson2HalModule());
+                    mapper.registerModule(new JavaTimeModule());
+                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                    return mapper;
+                }));
+    }
 }

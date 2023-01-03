@@ -24,7 +24,7 @@ class EventServiceTest extends AbstractTest {
     private EventRepository eventRepo;
 
     @BeforeEach
-    private void init () {
+    private void init() {
         eventRepo.deleteAll();
     }
 
