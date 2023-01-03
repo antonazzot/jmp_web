@@ -69,6 +69,7 @@ public class Customer implements ModelEntity {
     public void addOder(Oder oder) {
         if (oders == null) {
             oders = new HashSet<>();
+
         }
         oders.add(oder);
         oder.setCustomer(this);
