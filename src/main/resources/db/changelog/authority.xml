@@ -24,14 +24,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="5a36028d-f604-4b10-aa33-f0393adfee1c" author="Anton">
+    <changeSet id="7ef8f896-6144-40f1-b0c3-3330f6976e5d" author="Anton">
         <createTable tableName="user_token">
             <column name="token_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_token_pkey"/>
             </column>
-            <column name="token" type="VARCHAR(5000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="token" type="VARCHAR(2000)"/>
         </createTable>
     </changeSet>
 
@@ -53,6 +51,13 @@
         <addColumn tableName="customer">
             <column>email</column>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="c5f8d85e-989c-4f8c-b18c-0165552788d9" author="Anton">
+            <modifyDataType
+                    columnName="token"
+                    newDataType="varchar(2000)"
+                    tableName="user_token"/>
     </changeSet>
 
 </databaseChangeLog>

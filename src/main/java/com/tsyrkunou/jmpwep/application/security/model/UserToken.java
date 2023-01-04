@@ -1,5 +1,6 @@
 package com.tsyrkunou.jmpwep.application.security.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,5 +20,6 @@ public class UserToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TEXT", length = 1000)
     private String token;
 }

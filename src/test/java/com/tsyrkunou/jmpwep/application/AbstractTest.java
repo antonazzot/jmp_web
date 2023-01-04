@@ -1,5 +1,8 @@
 package com.tsyrkunou.jmpwep.application;
 
+import java.time.Duration;
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.mediatype.hal.Jackson2HalModule;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,9 +33,22 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import lombok.SneakyThrows;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class})
 @AutoConfigureMockMvc
 public abstract class AbstractTest {
+
+    public static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer<>("postgres:13.3")
+            .withInitScript("create-schema-JMP.sql")
+            .withUrlParam("currentSchema", "JMP")
+            .withTmpFs(Collections.singletonMap("/var/lib/postgresql/data", "rw"))
+            .withStartupTimeout(Duration.ofMinutes(1));
+
+    static {
+        POSTGRES.start();
+        System.setProperty("spring.datasource.url", POSTGRES.getJdbcUrl());
+        System.setProperty("spring.datasource.username", POSTGRES.getUsername());
+        System.setProperty("spring.datasource.password", POSTGRES.getPassword());
+    }
 
     @Autowired
     protected AuthenticationService authenticationService;
