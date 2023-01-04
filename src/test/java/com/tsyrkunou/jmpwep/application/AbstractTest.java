@@ -3,6 +3,7 @@ package com.tsyrkunou.jmpwep.application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.mediatype.hal.Jackson2HalModule;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -15,6 +16,8 @@ import com.tsyrkunou.jmpwep.application.repository.CustomerRepository;
 import com.tsyrkunou.jmpwep.application.repository.EventRepository;
 import com.tsyrkunou.jmpwep.application.repository.OrderRepository;
 import com.tsyrkunou.jmpwep.application.repository.TicketRepository;
+import com.tsyrkunou.jmpwep.application.security.jwt.UserTokenRepository;
+import com.tsyrkunou.jmpwep.application.security.service.AuthenticationService;
 import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
 import com.tsyrkunou.jmpwep.application.service.orderservice.OrderService;
@@ -27,7 +30,12 @@ import lombok.SneakyThrows;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
 public abstract class AbstractTest {
+
+    @Autowired
+    protected AuthenticationService authenticationService;
+
     @Autowired
     protected OrderService orderService;
     @Autowired
@@ -44,6 +52,8 @@ public abstract class AbstractTest {
     protected EventRepository eventRepository;
     @Autowired
     protected TicketRepository ticketRepository;
+    @Autowired
+    protected UserTokenRepository userTokenRepository;
     @Autowired
     protected CustomerRepository customerRepository;
     @Autowired

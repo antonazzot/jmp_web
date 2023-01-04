@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class CustomerSpecificationBuilder<T extends Customer> {
 
     public Specification<T> buildForOne(Long id) {
-        return isFieldEqualsTo(Customer.Fields.id, id);
+        return isFieldEqualsTo("id", id);
     }
 
     public Specification<T> buildForOne(String name) {

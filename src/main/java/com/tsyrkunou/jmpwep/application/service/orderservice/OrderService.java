@@ -36,7 +36,7 @@ public class OrderService {
     private final AmountService amountService;
     private final EventAmountService eventAmountService;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public Oder createOrder(Event event, Customer customer, List<Ticket> freeTicket, Integer amountOfPlace) {
         Set<Ticket> reserveTicket = new HashSet<>();
         for (int i = 0; i < amountOfPlace; i++) {
@@ -57,7 +57,7 @@ public class OrderService {
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public Oder createOrder(Event event, Customer customer, List<Integer> numberOfPlace) {
         List<Ticket> ticketByNumberOfPlace = ticketService.getTicketByNumberOfPlace(numberOfPlace);
         BigDecimal totalCoast = BigDecimal.ZERO;

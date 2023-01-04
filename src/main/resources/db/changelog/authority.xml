@@ -1,0 +1,58 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="3ebd82d6-b943-4e56-af80-b7eef4fa4d4b" author="Anton">
+        <sql>
+            CREATE TYPE AUTHORITY AS ENUM ('USER', 'TRAINER', 'ADMINISTRATOR');
+        </sql>
+        <rollback>
+            DROP TYPE IF EXISTS AUTHORITY;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2ba905db-0ef2-4b0b-9ba4-2d529d1caf6f" author="Anton">
+        <createTable tableName="user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_authority_pkey"/>
+            </column>
+            <column name="authority" type="AUTHORITY">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_authority_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5a36028d-f604-4b10-aa33-f0393adfee1c" author="Anton">
+        <createTable tableName="user_token">
+            <column name="token_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_token_pkey"/>
+            </column>
+            <column name="token" type="VARCHAR(5000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0946eeb4-714b-4b0d-9346-bf5fdf756d84" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_authority"
+                                 constraintName="user_authority_user_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="customer" validate="true"/>
+    </changeSet>
+
+    <changeSet id="0926e2b4-714b-4b0d-9346-bf5fdf756d84" author="Anton">
+        <addForeignKeyConstraint baseColumnNames="token_id" baseTableName="user_token"
+                                 constraintName="user_token_user_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="customer" validate="true"/>
+    </changeSet>
+
+    <changeSet id="c5f8d85e-789c-4f8c-b18c-0162552788d9" author="Anton">
+        <addColumn tableName="customer">
+            <column>email</column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
