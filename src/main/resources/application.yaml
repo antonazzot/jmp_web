@@ -55,3 +55,13 @@ bot:
   config:
     bot_name: name
     bot_owner: owner
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true

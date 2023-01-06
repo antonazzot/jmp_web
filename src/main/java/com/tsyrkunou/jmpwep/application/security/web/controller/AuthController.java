@@ -1,5 +1,10 @@
 package com.tsyrkunou.jmpwep.application.security.web.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +34,11 @@ public class AuthController {
 
     @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(service.authenticate(request));
+            @RequestBody AuthenticationRequest request,
+            HttpServletRequest req,
+            HttpServletResponse resp
+    ) throws IOException {
+        return ResponseEntity.ok(service.authenticate(request, req, resp));
     }
 }
 

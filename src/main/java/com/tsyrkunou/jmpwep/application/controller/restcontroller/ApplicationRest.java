@@ -34,6 +34,10 @@ public interface ApplicationRest {
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<CustomerResponse> create(@Valid @RequestBody CreateCustomerRequest request);
 
+    @Operation(description = "Redirect")
+    @GetMapping(value = "/hello",produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<String> hello();
+
     @Operation(description = "Get user by id")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<CustomerResponse> getUserById(@PathVariable(name = "id") Long id);

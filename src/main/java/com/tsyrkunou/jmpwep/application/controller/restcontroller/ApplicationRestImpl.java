@@ -60,13 +60,18 @@ public class ApplicationRestImpl implements ApplicationRest {
     }
 
     @Override
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("HELLO");
+    }
+
+    @Override
     public ResponseEntity<CustomerResponse> getUserById(Long id) {
         var user = customerService.findOne(id);
         return ResponseEntity.ok(customerAssembler.toModel(user));
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public ResponseEntity<EventResponse> createEvent(CreateEventRequest request) {
         log.info("Request for creation event with name: " + request.getName(), request.getName());
         EventData eventData = applicationConverter.convert(request);

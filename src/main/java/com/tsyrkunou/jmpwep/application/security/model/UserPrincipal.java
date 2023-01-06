@@ -2,16 +2,24 @@ package com.tsyrkunou.jmpwep.application.security.model;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.AllArgsConstructor;
+import com.tsyrkunou.jmpwep.application.security.jwt.JwtService;
+
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
     private User user;
+
+    @Autowired
+    private JwtService jwtService;
+
+    public UserPrincipal(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -20,12 +28,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getToken();
+        return jwtService.extractPassword(user.getToken());
     }
 
     @Override
     public String getUsername() {
-        return user.getToken();
+        return user.getEmail();
     }
 
     @Override

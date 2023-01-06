@@ -1,7 +1,12 @@
 package com.tsyrkunou.jmpwep.application.security.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,10 +25,10 @@ import com.tsyrkunou.jmpwep.application.security.web.model.AuthenticationRequest
 import com.tsyrkunou.jmpwep.application.security.web.model.AuthenticationResponse;
 import com.tsyrkunou.jmpwep.application.security.web.model.RegisterRequest;
 
-import lombok.RequiredArgsConstructor;
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.MeterRegistry;
 
 @Service
-@RequiredArgsConstructor
 public class AuthenticationService {
     private final CustomerRepository repository;
     private final PasswordEncoder passwordEncoder;
@@ -31,7 +36,21 @@ public class AuthenticationService {
     private final UserTokenRepository userTokenRepository;
     private final AuthenticationManager authenticationManager;
 
+    private AtomicInteger atomicInteger = new AtomicInteger();
+
+    public AuthenticationService(CustomerRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService,
+                                 UserTokenRepository userTokenRepository, AuthenticationManager authenticationManager,
+                                 MeterRegistry meterRegistry) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.userTokenRepository = userTokenRepository;
+        this.authenticationManager = authenticationManager;
+        meterRegistry.gauge("MyMetric", atomicInteger);
+    }
+
     @Transactional
+    @Timed
     public AuthenticationResponse register(RegisterRequest request) {
         Map<String, Object> claimsMap = Map.of("FirstName", request.getFirstname(),
                 "LastName", request.getLastname(),
@@ -58,6 +77,7 @@ public class AuthenticationService {
         savedToken.setToken(jwt);
         userTokenRepository.save(savedToken);
 
+        atomicInteger.set(Math.toIntExact(userPrincipal.getUser().getId()));
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
@@ -95,17 +115,21 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletRequest req,
+                                               HttpServletResponse resp)
+            throws IOException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getPs()
+                        passwordEncoder.encode(request.getPs())
                 )
         );
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
 
         var jwtToken = jwtService.generateToken(new UserPrincipal(user));
+        resp.addHeader("Authorization", jwtToken);
+        resp.sendRedirect("http://localhost:8080/jmp/hello");
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
