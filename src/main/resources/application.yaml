@@ -42,7 +42,8 @@ spring:
 
 logging:
   file:
-    name: "src/main/resources/spring.log"
+    name: "config/logs/spring.log"
+    #"src/main/resources/spring.log"
 
 
 #  charset:
@@ -57,11 +58,25 @@ bot:
     bot_owner: owner
 
 management:
-  endpoints.web.exposure.include: 'prometheus, health'
-  metrics:
-    export:
-      prometheus:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      probes:
         enabled: true
-    distribution:
-      percentiles-histogram:
-        "[http.server.requests]": true
+      show-details: always
+      group:
+        liveness:
+          include: "livenessstate,db"
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+
+
+
+

@@ -1,6 +1,29 @@
 version: '3.7'
 
+networks:
+  loki:
+
 services:
+
+  loki:
+    image: grafana/loki:2.2.1
+    container_name: loki-service
+    volumes:
+      - ./config/loki.yml:/etc/loki/loki.yml
+    ports:
+      - "3100:3100"
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.2.1
+    container_name: promtail-service
+    volumes:
+      - ./config/logs:/var/log/
+      - ./config/promtail.yml:/etc/promtail/promtail.yml
+    networks:
+      - loki
+
   prometheus:
     image: prom/prometheus
     ports:

@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.tsyrkunou.jmpwep.application.security.filter.JwtSecurityFilter;
 
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.matcher.RecordMatcher;
 
 @Configuration
 @EnableWebSecurity

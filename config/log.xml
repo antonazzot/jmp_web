@@ -1,0 +1,7 @@
+<changeSet id="903eb0c4-1e38-4c2e-a8f0-5b569b241798" author="Autocode">
+    <addColumn tableName="user">
+        <column name="location_id" type="VARCHAR(255)"/>
+    </addColumn>
+</changeSet>
+
+<changeSet id="2d93b410-69ec-4ab2-9647-2e2b6ea32ad7" author="Autocode">

@@ -34,6 +34,7 @@ import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
 import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,7 +72,7 @@ public class ApplicationRestImpl implements ApplicationRest {
     }
 
     @Override
-//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @Timed(value = "create_order", description = "create order duration")
     public ResponseEntity<EventResponse> createEvent(CreateEventRequest request) {
         log.info("Request for creation event with name: " + request.getName(), request.getName());
         EventData eventData = applicationConverter.convert(request);
@@ -86,6 +87,7 @@ public class ApplicationRestImpl implements ApplicationRest {
     }
 
     @Override
+    @Timed(value = "create_order", description = "create order duration")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR')")
     public ResponseEntity<OrderResponse> createOrder(CreateOrderRequest request) {
         CreateOrderData createOrderData = applicationConverter.convert(request);
