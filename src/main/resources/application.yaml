@@ -1,13 +1,14 @@
 server:
-  port: 8089
+  port: 8989
 
 spring:
   application:
-    name: JMP
+    name: jmp
   datasource:
-    password: postgres
-    url: jdbc:postgresql://localhost:5432/JMP
-    username: postgres
+    password: ${PASSWORD}
+    url: ${URL}
+#    jdbc:postgresql://localhost:5432/JMP
+    username: ${USERNAME}
     driver: org.postgresql.Drive
   jpa:
     hibernate:
@@ -20,7 +21,7 @@ spring:
         provider_class: net.sf.ehcache.hibernate.EhCacheProvider
       region:
         factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
-      ddl-auto: none
+      ddl-auto: create
     generate-ddl: true
     show-sql: true
     properties:
