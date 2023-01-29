@@ -21,7 +21,7 @@ spring:
         provider_class: net.sf.ehcache.hibernate.EhCacheProvider
       region:
         factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
-      ddl-auto: create
+      ddl-auto: none
     generate-ddl: true
     show-sql: true
     properties:
