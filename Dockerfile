@@ -1,11 +1,14 @@
-FROM amazoncorretto:17.0.4-al2 as builder
+FROM maven:3.8.5-openjdk-17-slim AS build
+
 ADD ./pom.xml pom.xml
 ADD ./kustom.env kustom.env
 ADD ./src src/
+VOLUME /var/run/docker.sock:/var/run/docker.sock
+
 
 RUN mvn clean package
 
-FROM amazoncorretto:17.0.4-al2
+FROM openjdk:17-alpine
 COPY --from=builder target/jmpwep-0.0.1-SNAPSHOT.jar application.jar
 
 EXPOSE 8989
