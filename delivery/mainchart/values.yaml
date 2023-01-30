@@ -1,0 +1,11 @@
+namespace: jmp-namespace
+deployment:
+  replicas: 2
+stateful:
+  replicas: 1
+postservice:
+  port: 31300
+userservice:
+  port: 31200
+config:
+  url: jdbc:postgresql://host.docker.internal:5432/jmpdb

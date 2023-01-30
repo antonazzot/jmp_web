@@ -9,7 +9,7 @@ VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN mvn clean package
 
 FROM openjdk:17-alpine
-COPY --from=builder target/jmpwep-0.0.1-SNAPSHOT.jar application.jar
+COPY --from=build target/jmpwep-0.0.1-SNAPSHOT.jar application.jar
 
 EXPOSE 8989
 

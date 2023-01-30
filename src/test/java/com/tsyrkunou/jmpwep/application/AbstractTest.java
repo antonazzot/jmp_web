@@ -39,7 +39,7 @@ public abstract class AbstractTest {
 
     public static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer<>("postgres:13.3")
             .withInitScript("create-schema-JMP.sql")
-            .withUrlParam("currentSchema", "JMP")
+            .withUrlParam("currentSchema", "jmpdb")
             .withTmpFs(Collections.singletonMap("/var/lib/postgresql/data", "rw"))
             .withStartupTimeout(Duration.ofMinutes(1));
 
