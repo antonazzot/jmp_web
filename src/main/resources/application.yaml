@@ -39,7 +39,8 @@ logging:
   file:
     name: "src/main/resources/spring.log"
 
-token: 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
+token: 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
+#  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
 owner: autocoderepobot
 repo: testforkrepo
 
@@ -49,17 +50,17 @@ repo: testforkrepo
 
 pdfdirectory: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/resources
 
-security:
-  oauth2:
-    client:
-      clientId: f0f33c0046052814f064
-      clientSecret: 38b4210f5e05c4f2df46ead5a4b17dcdcb891ba1
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
-      clientAuthenticationScheme: form
-    resource:
-      user-info-uri: https://api.github.com/user
-      prefer-token-info: false
+#security:
+#  oauth2:
+#    client:
+#      clientId: f0f33c0046052814f064
+#      clientSecret: 38b4210f5e05c4f2df46ead5a4b17dcdcb891ba1
+#      accessTokenUri: https://github.com/login/oauth/access_token
+#      userAuthorizationUri: https://github.com/login/oauth/authorize
+#      clientAuthenticationScheme: form
+#    resource:
+#      user-info-uri: https://api.github.com/user
+#      prefer-token-info: false
 
 #a.y:         bot-id: ${GIT_OAUTH2_GITHUB_BOT_ID}
 #               bot-username: ${GIT_OAUTH2_GITHUB_BOT_USERNAME}

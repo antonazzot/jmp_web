@@ -2,17 +2,18 @@ package com.tsyrkunou.jmpwep.application.feign;
 
 import java.math.BigDecimal;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.keygen.Base64StringKeyGenerator;
 import org.springframework.security.crypto.keygen.StringKeyGenerator;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ import com.tsyrkunou.jmpwep.application.converter.ApplicationConverter;
 import com.tsyrkunou.jmpwep.application.model.customer.CreateCustomerRequest;
 import com.tsyrkunou.jmpwep.application.model.customer.Customer;
 import com.tsyrkunou.jmpwep.application.model.customer.CustomerData;
+import com.tsyrkunou.jmpwep.application.model.github.GithubContent;
 import com.tsyrkunou.jmpwep.application.model.github.GithubRepository;
 import com.tsyrkunou.jmpwep.application.model.github.GithubUser;
 import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
@@ -34,14 +36,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class GitFeginClientController {
     private final GithubFeignClient githubFeignClient;
-    private final LocalFeignClient localFeignClient;
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
-    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     private final CustomerService customerService;
     private final ApplicationConverter applicationConverter;
 
-    @GetMapping("/fork")
+    @GetMapping("/forkk")
     public GithubRepository refork(@Value("${token}") String token, @Value("${owner}") String owner,
                                    @Value("${repo}") String repo) {
         githubFeignClient.getUser("Bearer " + token);
@@ -93,5 +91,43 @@ public class GitFeginClientController {
 //                .additionalParameters(Map.of(USER_ID_PARAMETER_NAME, currentUser.getId()))
 //                .build();
 //    }
+
+    @GetMapping(value = "/repo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GithubRepository getRepo(@Value("${token}") String token,
+                                    @RequestParam String subtoken,
+                                    @RequestParam String owner,
+                                    @RequestParam String repo) {
+        String t = subtoken == null ? token : subtoken;
+        String o = owner == null ? "ANTONAZZOT" : owner;
+        String r = repo == null ? "k8s" : repo;
+
+
+        GithubRepository repos = githubFeignClient.getRepo("Bearer " + t, o, r);
+        String s = repos.toString();
+        return repos;
+    }
+
+    @GetMapping(value = "/fork", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GithubRepository fork(@Value("${token}") String token,
+                                    @RequestParam(required = false) String subtoken,
+                                    @RequestParam(required = false) String owner,
+                                    @RequestParam(required = false) String repo) {
+        String t = subtoken == null ? token : subtoken;
+        String o = owner == null ? "ANTONAZZOT" : owner;
+        String r = repo == null ? "k8s" : repo;
+
+
+        GithubRepository repos = githubFeignClient.forkRepository("Bearer " + t, o, r);
+        String s = repos.toString();
+        return repos;
+    }
+
+    @GetMapping(value = "/content", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GithubContent getContent(@Value("${token}") String token) {
+        List<GithubContent> repo =
+                githubFeignClient.getContent("Bearer " + token, "ANTONAZZOT", "k8s", "/manifests/mm.yaml");
+        String s = repo.toString();
+        return null;
+    }
 
 }

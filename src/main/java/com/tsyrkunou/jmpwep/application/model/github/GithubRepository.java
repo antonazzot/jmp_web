@@ -34,4 +34,10 @@ public class GithubRepository {
 
     @JsonProperty("html_url")
     private String htmlUrl;
+
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("forks_count")
+    private Long forksCount;
 }
