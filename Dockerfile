@@ -3,7 +3,10 @@ FROM maven:3.8.5-openjdk-17-slim AS build
 ADD ./pom.xml pom.xml
 ADD ./kustom.env kustom.env
 ADD ./src src/
-#VOLUME /var/run/docker.sock:/var/run/docker.sock
+
+RUN chmod 777 /var/run/docker.sock
+
+VOLUME /var/run/docker.sock:/var/run/docker.sock
 
 
 RUN mvn clean package
