@@ -6,7 +6,7 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master'], [name: '*/05-ci-cd']], extensions: [], userRemoteConfigs: [[credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/jmp_web']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/jmp_web']]])
                 sh 'mvn clean install'
             }
         }
