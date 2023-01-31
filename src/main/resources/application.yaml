@@ -78,6 +78,6 @@ management:
     livenessstate:
       enabled: true
 
-
+token: ${GIT_TOKEN}
 
 
