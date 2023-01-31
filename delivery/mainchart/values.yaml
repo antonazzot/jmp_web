@@ -8,4 +8,4 @@ postservice:
 userservice:
   port: 31200
 config:
-  url: jdbc:postgresql://host.docker.internal:5432/jmpdb
+  url: jdbc:postgresql://10.105.76.53:5432/jmpdb
