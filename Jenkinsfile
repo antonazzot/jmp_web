@@ -20,8 +20,7 @@ pipeline {
         stage('Build db image'){
             steps{
                 script{
-                    sh 'cd delivery/db/'
-                    sh 'docker build -t epamantontsyrkunou/jmpdb . '
+                    sh 'docker build ./delivery/db -t epamantontsyrkunou/jmpdb'
                 }
             }
         }
