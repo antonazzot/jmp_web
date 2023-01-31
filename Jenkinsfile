@@ -45,7 +45,7 @@ pipeline {
         stage('Deploy to k8s'){
             steps{
                 script{
-                   sh 'helm upgrade jmpapp-1.3.0.0 --set url=jdbc:postgresql://10.97.237.25:5432/jmpdb ./delivery/mainchart'
+                   sh 'helm upgrade jmpapp-1.3.0.0 --set url=jdbc:postgresql://10.105.76.53:5432/jmpdb ./delivery/mainchart'
                 }
             }
         }
