@@ -1,13 +1,14 @@
 FROM maven:3.8.5-openjdk-17-slim AS build
 
+ENV APP_HOME /app
+RUN mkdir $APP_HOME
+
 ADD ./pom.xml pom.xml
 ADD ./kustom.env kustom.env
 ADD ./src src/
 
-RUN chmod 777 /var/run/docker.sock
-
+WORKDIR $APP_HOME
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-
 
 RUN mvn clean package
 
