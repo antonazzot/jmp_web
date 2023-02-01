@@ -7,7 +7,7 @@ pipeline {
         stage('Build Maven'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/jmp_web']]])
-                sh 'mvn clean install'
+                sh 'mvn -D GIT_TOKEN=token clean install'
             }
         }
         stage('Build jmp image '){
