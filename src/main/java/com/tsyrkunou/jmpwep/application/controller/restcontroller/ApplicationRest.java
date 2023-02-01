@@ -1,5 +1,10 @@
 package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
+import static org.springframework.http.MediaType.IMAGE_JPEG;
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.hateoas.MediaTypes;
@@ -35,8 +40,11 @@ public interface ApplicationRest {
     ResponseEntity<CustomerResponse> create(@Valid @RequestBody CreateCustomerRequest request);
 
     @Operation(description = "Redirect")
-    @GetMapping(value = "/hello",produces = MediaTypes.HAL_JSON_VALUE)
+    @GetMapping(value = "/hello", produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<String> hello();
+
+    @GetMapping(value = "/img", produces = IMAGE_JPEG_VALUE)
+    byte[] image(@RequestParam("name") String name) throws IOException;
 
     @Operation(description = "Get user by id")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
@@ -63,6 +71,6 @@ public interface ApplicationRest {
     ResponseEntity<UpdateAmountResponse> updateAmount(@Valid @RequestBody UpdateAmountRequest request);
 
     @PostMapping(value = "updatebot")
-    ResponseEntity<Void> updateBot (@RequestParam String botName, @RequestParam String botOwner);
+    ResponseEntity<Void> updateBot(@RequestParam String botName, @RequestParam String botOwner);
 
 }

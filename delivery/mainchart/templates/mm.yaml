@@ -22,6 +22,7 @@ metadata:
 data:
   POSTGRES_USER : cG9zdGdyZXM=
   POSTGRES_PASSWORD : cG9zdGdyZXM=
+  GIT_TOKEN: dG9rZW4K
 ---
 
 apiVersion: v1

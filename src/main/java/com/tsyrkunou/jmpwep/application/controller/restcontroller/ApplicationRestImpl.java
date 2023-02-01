@@ -38,6 +38,11 @@ import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @RequiredArgsConstructor
 @Slf4j
 @RestController
@@ -63,6 +68,12 @@ public class ApplicationRestImpl implements ApplicationRest {
     @Override
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("HELLO");
+    }
+
+    @Override
+    public byte[] image(String name) throws IOException {
+        String property = System.getProperty("user.home");
+        return Files.readAllBytes(Paths.get(property + "/Downloads/" + name));
     }
 
     @Override

@@ -4,15 +4,8 @@ import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
-        FunctionsTransferring<String> transferring = new FunctionsTransferring<>();
-
-        String str = "ANTON";
-
-        String antin = transferring.getConsumer(getStringConsumer("ANTOn"), "ANTIN"
-        );
-
-        System.out.println(antin);
-
+        UrlCutter urlCutter = new UrlCutter();
+        urlCutter.encode("https://anton.azzot.com");
     }
 
     private static Consumer<String> getStringConsumer(String str) {
