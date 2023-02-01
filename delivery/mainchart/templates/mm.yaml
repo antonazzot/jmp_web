@@ -121,7 +121,7 @@ spec:
   selector:
     matchLabels:
       app: jmp
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -129,7 +129,7 @@ spec:
     spec:
       containers:
         - name: jmp
-          image: epamantontsyrkunou/jmp-1.0.0
+          image: epamantontsyrkunou/jmp-1.0.2
           ports:
             - containerPort: 8989
           env:
@@ -144,6 +144,12 @@ spec:
                 secretKeyRef:
                   name: jmp-db-secret
                   key: POSTGRES_USER
+
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: jmp-db-secret
+                  key: GIT_TOKEN
 
             - name: URL
               valueFrom:

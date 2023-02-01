@@ -13,7 +13,7 @@ pipeline {
         stage('Build jmp image '){
             steps{
                 script{
-                    sh 'docker buildx build . --builder "$(docker buildx create --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=10000000 --driver-opt env.BUILDKIT_STEP_LOG_MAX_SPEED=10000000)" -t epamantontsyrkunou/jmp-1.0.0 '
+                    sh 'docker buildx build . --builder "$(docker buildx create --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=10000000 --driver-opt env.BUILDKIT_STEP_LOG_MAX_SPEED=10000000)" -t epamantontsyrkunou/jmp-1.0.2 '
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                    sh 'docker login -u epamantontsyrkunou -p ${hubuser}'
 
 }
-                   sh 'docker push epamantontsyrkunou/jmp-1.0.0'
+                   sh 'docker push epamantontsyrkunou/jmp-1.0.2'
                 }
             }
         }
