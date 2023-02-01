@@ -22,6 +22,7 @@ metadata:
 data:
   POSTGRES_USER : cG9zdGdyZXM=
   POSTGRES_PASSWORD : cG9zdGdyZXM=
+  GIT_TOKEN: dG9rZW4K
 ---
 
 apiVersion: v1
@@ -145,6 +146,12 @@ spec:
                 secretKeyRef:
                   name: jmp-db-secret
                   key: POSTGRES_USER
+
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: jmp-db-secret
+                  key: GIT_TOKEN
 
             - name: URL
               valueFrom:
