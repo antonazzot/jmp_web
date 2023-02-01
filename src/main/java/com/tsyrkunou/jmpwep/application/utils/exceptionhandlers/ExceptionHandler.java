@@ -19,4 +19,21 @@ public class ExceptionHandler {
     public ResponseEntity<?> catchException(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getMessageChain(e));
     }
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<?> catchException(InsufficientRepositoryRightsException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getMessageChain(e));
+    }
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<?> catchException(IntegrationUnexpectedException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getMessageChain(e));
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<?> catchException(RepositoryNotFoundOrInaccessibleException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getMessageChain(e));
+    }
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<?> catchException(SingleValidationException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getMessageChain(e));
+    }
 }
