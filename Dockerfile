@@ -6,7 +6,7 @@ ADD ./src src/
 
 #VOLUME /var/run/docker.sock:/var/run/docker.sock
 
-RUN mvn -D GIT_TOKEN=token clean package -Dmaven.test.skip
+RUN mvn clean package -Dmaven.test.skip
 
 FROM openjdk:17-alpine
 COPY --from=build target/jmpwep-0.0.1-SNAPSHOT.jar application.jar

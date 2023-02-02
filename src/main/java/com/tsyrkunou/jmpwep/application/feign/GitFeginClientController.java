@@ -30,7 +30,7 @@ public class GitFeginClientController {
     private final GithubFeignClient githubFeignClient;
     private final CustomerService customerService;
     private final ApplicationConverter applicationConverter;
-    @Value("${token}")
+    @Value("${custom.items.token}")
     private String token;
 
     @GetMapping("/user")

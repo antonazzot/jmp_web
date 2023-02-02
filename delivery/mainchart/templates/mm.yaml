@@ -122,7 +122,9 @@ spec:
   selector:
     matchLabels:
       app: jmp
-  replicas: 3
+  replicas: {{ .Values.config.deployment.replicas }}
+  strategy:
+    type: {{ .Values.config.deployment.strategy }}
   template:
     metadata:
       labels:
@@ -130,7 +132,7 @@ spec:
     spec:
       containers:
         - name: jmp
-          image: epamantontsyrkunou/jmp-1.0.2
+          image: {{ .Values.config.deployment.image }}
           ports:
             - containerPort: 8989
           env:

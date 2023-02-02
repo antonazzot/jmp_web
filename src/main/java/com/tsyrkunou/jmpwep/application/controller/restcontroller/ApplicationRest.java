@@ -1,9 +1,6 @@
 package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
-import static org.springframework.http.MediaType.IMAGE_JPEG;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
-
-import java.io.IOException;
 
 import javax.validation.Valid;
 
@@ -44,7 +41,7 @@ public interface ApplicationRest {
     ResponseEntity<String> hello();
 
     @GetMapping(value = "/img", produces = IMAGE_JPEG_VALUE)
-    byte[] image(@RequestParam("name") String name) throws IOException;
+    byte[] image(@RequestParam("name") String name);
 
     @Operation(description = "Get user by id")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)

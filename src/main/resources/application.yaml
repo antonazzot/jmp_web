@@ -51,8 +51,6 @@ logging:
 #    file: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/logdir/log-file.log
 #  file: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/logdir/log-file.log
 
-pdfdirectory: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/resources
-
 bot:
   config:
     bot_name: name
@@ -78,6 +76,9 @@ management:
     livenessstate:
       enabled: true
 
-token: ${GIT_TOKEN}
+custom:
+  items:
+    token: ${GIT_TOKEN}
+    pdf_directory: /Users/Anton_Tsyrkunou/Documents/SomeProject/JMP/jmpwep/src/main/resources
 
 

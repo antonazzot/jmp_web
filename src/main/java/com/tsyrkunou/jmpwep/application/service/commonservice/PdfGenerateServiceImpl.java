@@ -23,7 +23,7 @@ public class PdfGenerateServiceImpl implements PdfGenerateService {
 
     private final TemplateEngine templateEngine;
 
-    @Value("${pdfdirectory}")
+    @Value("${custom.items.pdf_directory}")
     private String pdfDirectory;
 
     @Override

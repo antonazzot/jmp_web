@@ -2,6 +2,14 @@ package com.tsyrkunou.jmpwep.application.controller.restcontroller;
 
 import static com.tsyrkunou.jmpwep.application.utils.ResourceUtils.buildLocationUri;
 
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,15 +41,12 @@ import com.tsyrkunou.jmpwep.application.service.amountservice.GeneralAmountServi
 import com.tsyrkunou.jmpwep.application.service.customerservice.CustomerService;
 import com.tsyrkunou.jmpwep.application.service.eventservice.EventService;
 import com.tsyrkunou.jmpwep.application.service.ticketservice.TicketBookingService;
+import com.tsyrkunou.jmpwep.application.utils.exceptionhandlers.MyAppException;
+import com.tsyrkunou.jmpwep.application.utils.softexecutor.Try;
 
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -57,6 +62,9 @@ public class ApplicationRestImpl implements ApplicationRest {
     private final GeneralAmountService generalAmountService;
     private final BotConfig botConfig;
 
+    @Value("classpath:/img/oskar-smethurst-B1GtwanCbiw-unsplash.jpeg")
+    private Resource resourceFile;
+
     @Override
     public ResponseEntity<CustomerResponse> create(CreateCustomerRequest request) {
         CustomerData customerData = applicationConverter.convert(request);
@@ -71,9 +79,25 @@ public class ApplicationRestImpl implements ApplicationRest {
     }
 
     @Override
-    public byte[] image(String name) throws IOException {
-        String property = System.getProperty("user.home");
-        return Files.readAllBytes(Paths.get(property + "/Downloads/" + name));
+    public byte[] image(String name) {
+        URI path = null;
+        try {
+            path = resourceFile.getURI();
+        } catch (IOException e) {
+            throw new MyAppException(e.getMessage());
+        }
+        URI finalPath = path;
+        return Try.execute(() -> executeByteArray(Paths.get(System.getProperty("user.home") + "/Downloads/" + name)))
+                .handling(new Try.FunctionHandler<>(MyAppException.class, e -> executeByteArray(Path.of(finalPath))))
+                .execute();
+    }
+
+    private byte[] executeByteArray(Path path) {
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            throw new MyAppException(e.getMessage());
+        }
     }
 
     @Override

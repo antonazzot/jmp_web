@@ -1,1 +1,7 @@
-token: token
+spring:
+  config:
+    activate:
+      on-profile: test
+custom:
+  items:
+    token: token
